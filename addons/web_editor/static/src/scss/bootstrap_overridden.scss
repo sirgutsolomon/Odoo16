@@ -1,0 +1,191 @@
+// TODO this whole file is probably not needed in the backend and may be the
+// cause of color issues. It will be reviewed in master (probably removed from
+// backend bundles and simplified).
+
+// Prefix for :root CSS variables
+$variable-prefix: '' !default;
+
+// Automatically update bootstrap colors map (unused by BS itself)
+$colors: () !default;
+@each $name, $color in $o-color-palette {
+    $colors: map-merge(('#{$name}': o-color($color)), $colors);
+}
+
+$o-btn-bg-colors: () !default;
+$o-btn-border-colors: () !default;
+@if not (variable-exists('prevent-backend-colors-alteration') and $prevent-backend-colors-alteration) {
+    $o-btn-bg-colors: map-merge((
+        'primary': o-color('o-cc1-btn-primary'),
+        'secondary': o-color('o-cc1-btn-secondary'),
+    ), $o-btn-bg-colors);
+    $o-btn-border-colors: map-merge((
+        'primary': o-color('o-cc1-btn-primary-border'),
+        'secondary': o-color('o-cc1-btn-secondary-border'),
+    ), $o-btn-border-colors);
+}
+
+// Automatically extend bootstrap to create theme background/text/button classes
+$theme-colors: () !default;
+@each $name, $color in $o-theme-color-palette {
+    $theme-colors: map-merge(('#{$name}': o-color($color)), $theme-colors);
+}
+
+// Automatically extend bootstrap gray palette (the theme palette is supposed to
+// at least declare white and black)
+$grays: () !default;
+@each $name, $color in $o-gray-color-palette {
+    $grays: map-merge(('#{$name}': o-color($color)), $grays);
+}
+
+// Detach colors that are used for backend UI (see comment linked to the
+// prevent-backend-colors-alteration for more information)
+@if variable-exists('prevent-backend-colors-alteration') and $prevent-backend-colors-alteration {
+    $theme-colors: map-remove($theme-colors, 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark');
+    $grays: map-remove($grays, '100', '200', '300', '400', '500', '600', '700', '800', '900', 'black', 'white');
+}
+
+// Bootstrap use standard variables to define individual colors which are then
+// placed into a map which is then used to get the value of each individual
+// color. As BS4 allows to extend the map a priori to define our own colors,
+// it does not take care of making the standard variables match the values in
+// the user's map. The problem is that, at least for grays, bootstrap uses the
+// standard variables in its _variables.scss file, so if:
+//
+// User file:
+// $grays: (
+//     '100': blue,
+// );
+//
+// BS4:
+// $gray-100: gray !default;
+// $grays: () !default;
+// $grays: map-merge((
+//     '100': $gray-100,
+// ), $grays);
+//
+// -> Here map-get($grays, '100') is blue but $gray-100 is still gray... so BS4 is not
+// correctly generated as BS4 uses $gray-100 in _variables.scss
+$primary: map-get($theme-colors, 'primary') !default;
+$secondary: map-get($theme-colors, 'secondary') !default;
+$success: map-get($theme-colors, 'success') !default;
+$info: map-get($theme-colors, 'info') !default;
+$warning: map-get($theme-colors, 'warning') !default;
+$danger: map-get($theme-colors, 'danger') !default;
+$light: map-get($theme-colors, 'light') !default;
+$dark: map-get($theme-colors, 'dark') !default;
+
+$white: map-get($grays, 'white') !default;
+$gray-100: map-get($grays, '100') !default;
+$gray-200: map-get($grays, '200') !default;
+$gray-300: map-get($grays, '300') !default;
+$gray-400: map-get($grays, '400') !default;
+$gray-500: map-get($grays, '500') !default;
+$gray-600: map-get($grays, '600') !default;
+$gray-700: map-get($grays, '700') !default;
+$gray-800: map-get($grays, '800') !default;
+$gray-900: map-get($grays, '900') !default;
+$black: map-get($grays, 'black') !default;
+
+$o-color-system-initialized: true;
+
+// This was added by compatibility but it actually became a nice behavior: the
+// bootstrap default "small" behavior will use the ratio of the configured base
+// font size (if configured, e.g. with website settings) and the Odoo own's
+// "small" font size. Grep: SMALLER_FONT_SIZE_RATIO.
+$small-font-size: if(
+    variable-exists('font-size-base'),
+    ($o-small-font-size / $font-size-base) * 1em,
+    null
+) !default;
+
+
+// We hardcode the styles of the alerts because wkhtmltopdf doesn't work
+// with css variables that we introduced while upgrading to bootstrap v 5.3 in
+// https://github.com/odoo/odoo/commit/058212e12b5079eba870bde9775fe98f27928935
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alert-primary {
+    color: #084298;
+    background-color: #cfe2ff;
+    border-color: #b6d4fe;
+}
+
+.alert-primary .alert-link {
+    color: #06357a;
+}
+
+.alert-secondary {
+    color: #41464b;
+    background-color: #e2e3e5;
+    border-color: #d3d6d8;
+}
+
+.alert-secondary .alert-link {
+    color: #34383c;
+}
+
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.alert-success .alert-link {
+    color: #0c4128;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
+
+.alert-info .alert-link {
+    color: #04414d;
+}
+
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+
+.alert-warning .alert-link {
+    color: #523e02;
+}
+
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.alert-danger .alert-link {
+    color: #6a1a21;
+}
+
+.alert-light {
+    color: #636464;
+    background-color: #fefefe;
+    border-color: #fdfdfe;
+}
+
+.alert-light .alert-link {
+    color: #4f5050;
+}
+
+.alert-dark {
+    color: #141619;
+    background-color: #d3d3d4;
+    border-color: #bcbebf;
+}
+
+.alert-dark .alert-link {
+    color: #101214;
+}
