@@ -7,7 +7,7 @@
     <record id="action_employee_tax_report" model="ir.actions.report">
         <field name="name">Employee Tax Report</field>
         <field name="model">hr.employee</field>
-        <field name="report_name">custom_employee_tax_report.report_employee_tax_template</field>
+        <field name="report_name">om_hr_payroll.report_employee_tax_template</field>
         <field name="report_type">qweb-html</field>
     </record>
 
@@ -17,8 +17,8 @@
         string="Employee Tax Report"
         model="hr.employee"
         report_type="qweb-html"
-        name="custom_employee_tax_report.report_employee_tax_template"
-        file="custom_employee_tax_report.report_employee_tax_template"
+        name="om_hr_payroll.report_employee_tax_template"
+        file="om_hr_payroll.report_employee_tax_template"
         attachment_use="False"
         paperformat="A4"
     />

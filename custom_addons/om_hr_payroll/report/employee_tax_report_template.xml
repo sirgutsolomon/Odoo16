@@ -15,7 +15,7 @@
                           <xpath expr="//div[hasclass('header')]" position="replace">
                     <div style="display:flex; border: 1px solid black;">
                         <div style="width:10%">
-                    <img t-att-src="'/om_hr_payroll/static/src/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
                         </div>
                         <div style="width:40%; background-color:black; color:white; text-align:center">
                             <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
@@ -26,7 +26,7 @@
 
                         </div>
                         <div style="width:10%">
-                        <img t-att-src="'/om_hr_payroll/static/src/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
+                        <img t-att-src="'/om_hr_payroll/static/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
                         </div>
                     </div>
                  </xpath>
@@ -94,8 +94,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Month</td>
-                                    <td>Year</td>
+                                    <td>Month <span t-esc="month"/></td>
+                                    <td>Year <span t-esc="year"/></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -226,6 +226,14 @@
                                         <th>Employee TIN</th>
                                         <th>Employee's Name<br/> (Name, Father's Name, Grandfather's Name) </th>
                                     </tr>
+                                    <t t-foreach="end_date_employee" t-as="employee">
+                                        <tr style="height:15px">
+                                             <td><span t-esc="employee['no']"/></td>
+                                                <td><span t-esc="employee['tin_number']"/></td>
+                                                <td><span t-esc="employee['name']"/></td>
+                                         </tr>
+                                    </t>
+                                    <t t-if="len(end_date_employee) == 0">
                                     <tr style="height:15px">
                                         <td> </td>
                                         <td> </td>
@@ -246,7 +254,7 @@
                                         <td> </td>
                                         <td> </td>
                                     </tr>
-
+                                    </t>
                                 </table>
                             </div>
                             <div style="width:30%">
@@ -326,7 +334,7 @@
                                             <div style=" border: 1px solid black; margin-bottom:40px;">
                                  <div style="display:flex; border-bottom:1px solid black;">
                         <div style="width:10%">
-                    <img t-att-src="'/om_hr_payroll/static/src/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
                         </div>
                         <div style="width:40%; background-color:black; color:white; text-align:center">
                             <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
@@ -337,7 +345,7 @@
 
                         </div>
                         <div style="width:10%">
-                        <img t-att-src="'/om_hr_payroll/static/src/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
+                        <img t-att-src="'/om_hr_payroll/static/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
                         </div>
                     </div>
                                                 <div style="border-top:1px solid black; display:flex; font-size:10px">
@@ -350,7 +358,7 @@
                                                         <span style="margin-left:20px;" t-esc="company['vat']"/>
                                                     </div>
                                                     <div style="width:15%; border-right:1px solid black">
-                                                        3. Tax Period <br/> month FEB year 2024
+                                                        3. Tax Period <br/> month <span t-esc="month"/> year <span t-esc="year"/>
                                                     </div>
                                                     <div style="width:15%; border-right:1px solid black">
                                                         Page <span t-esc="line_index + 1"/> of  <span t-esc="len(employees)"/>
