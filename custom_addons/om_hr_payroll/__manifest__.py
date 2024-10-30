@@ -13,6 +13,9 @@
         'mail',
         'hr_contract',
         'hr_holidays',
+        'base',
+        'hr',
+        'web'
     ],
     'data': [
         'security/security.xml',
@@ -34,6 +37,9 @@
         'views/report_payslip_details_templates.xml',
         'views/hr_contract_history_views.xml',
         'views/hr_leave_type_view.xml',
+        'report/report_action.xml',  # Action to render the reports
+        "report/employee_tax_report_template.xml",
+        'views/report_menu.xml',  # Menu item for reports access
         'data/mail_template.xml',
     ],
     'images': ['static/description/banner.png'],

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <menuitem id="menu_employee_tax_report_root" name="Employee Reports" sequence="10"/>-->
+    <menuitem id="menu_employee_tax_report" name="Generate Tax Report" sequence="200" parent="menu_hr_payroll_root" action="custom_employee_tax_report.action_employee_tax_report"/>
+</odoo>
+
+<!--<menuitem id="menu_hr_payroll_configuration"-->
+<!--              name="Configuration" parent=""-->
+<!--              sequence="100"-->
+<!--              groups="om_hr_payroll.group_hr_payroll_manager"/>-->

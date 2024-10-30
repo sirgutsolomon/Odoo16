@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <data>
+        <template id="report_employee_tax_template">
+            <t t-call="web.external_layout">
+
+
+                
+                <div class="page">
+                    <t t-foreach="employees" t-as="line">
+                        <t t-if="line_index == 0">
+                    <main>
+                          <xpath expr="//div[hasclass('header')]" position="replace">
+                    <div style="display:flex; border: 1px solid black;">
+                        <div style="width:10%">
+                    <img t-att-src="'/custom_employee_tax_report/static/src/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                        </div>
+                        <div style="width:40%; background-color:black; color:white; text-align:center">
+                            <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
+                            <span>Federal Inland Revenue Authority</span>
+                        </div>
+                        <div style="width:40%; font-weight:bold; display:flex; justify-content:center; align-items:center; text-align:center;">
+                            <span>Employment Income Tax <br/> Declaration</span>
+
+                        </div>
+                        <div style="width:10%">
+                        <img t-att-src="'/custom_employee_tax_report/static/src/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
+                        </div>
+                    </div>
+                 </xpath>
+
+                        <style>
+                             body {
+                                margin: 0;
+                                padding: 5px;
+                                width: 800px;
+                                margin: 0 auto;
+                                border: 1px solid black;
+
+                            }
+                            main{
+                            margin-bottom:50px;
+                            }
+
+                            .list-unstyled{
+                            display:none;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            th {
+                                font-weight: bold;
+                                font-size:10px;
+                                border-left: 1px solid black;
+                            }
+                            td {
+                                text-align: left;
+                                font-size:10px;
+                                border-left: 1px solid black;
+                                border-top: 1px solid black;
+                            }
+                            p{
+                            margin:0;
+                            font-weight: 700;
+                            font-size: 10px;
+                            }
+                        </style>
+<!--                        section 1 -->
+                        <div style="margin-top:5px; margin-bottom:10px">
+                            <h4 style="text-align:center; margin-bottom:0; margin-top:0;">Section 1 - Taxpayer Information</h4>
+                            <table style="width: 100%; border: 1px solid black; border-left:0;">
+                                <tr>
+                                    <td colspan="4" rowspan="2"  >
+                                        1. Name of Person or Organization Withholding Tax <br/>
+                                        <span t-esc="company['name']"/>
+
+                                    </td>
+                                    <td colspan="2" rowspan="2">
+                                        3. Taxpayer Identification Number <br/>
+                                        <span t-esc="company['vat']"/>
+                                    </td>
+                                    <td colspan="2" rowspan="2">
+                                        4. Tax Accountant Number <br/>
+                                        <span t-esc="company['company_registry']"/>
+                                    </td>
+                                    <td colspan="2">
+                                        8. Withholding Period
+                                    </td>
+                                    <td style="border-right:1px solid black;" rowspan="2">
+                                        Page <span t-esc="line_index + 1"/> of  <span t-esc="len(employees)"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>Year</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2a. Region
+                                    </td>
+                                    <td style="width: 20%">
+                                    <span t-esc="company['city']"/>
+                                    </td>
+                                    <td>
+                                        2b. Zone/K-Ketema
+                                    </td>
+                                    <td>
+                                        <span t-esc="company['street']"/>
+                                    </td>
+                                    <td colspan="4">
+                                        5. Tax Center  <span style="margin-left:20px;" t-esc="company['street']"/>
+                                    </td>
+                                    <td rowspan="3" colspan="4"  style="background-color: #D3D3D3;">
+                                        Document Number (Official Use Only)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        2c. Woreda <br/>
+                                        <span t-esc="company['street2']"/>
+                                    </td>
+                                    <td rowspan="2" colspan="2">
+                                        2d. Kebele/Farmers Association <br/>
+                                        <span t-esc="company['farmers_association']"/>
+                                    </td>
+                                    <td rowspan="2">
+                                        2e. House Number<br/>
+                                        <span t-esc="company['house_number']"/>
+                                    </td>
+                                    <td rowspan="2" colspan="2">
+                                        6. Telephone Number<br/>
+                                        <span t-esc="company['phone']"/>
+                                    </td>
+                                    <td rowspan="2" colspan="2">
+                                        7. Fax Number<br/>
+                                        <span t-esc="company['mobile']"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <table style="width: 100%; border: 1px solid black; border-bottom: 0; border-left:0;">
+                        <tr style="border-left:1px solid black;">
+                            <th style="width:4%">a) No.</th>
+                            <th>b) Tin Number</th>
+                            <th style="width:20%">c) Employee name (Name, Father’s Name and Grandfather’s Name)</th>
+                            <th>d) Start Date of Employment</th>
+                            <th>e) Basic Salary</th>
+                            <th>f) Transport Allowance</th>
+                            <th>g) Taxable Transport Allowances</th>
+                            <th>h) Over Time</th>
+                            <th>i) Other Taxable Benefits</th>
+                            <th>j) Taxable Income</th>
+                            <th>k) Tax withheld</th>
+                            <th>L) Cost Sharing</th>
+                            <th>M) Net Payment</th>
+                        </tr>
+                        <t t-foreach="employees[line_index]" t-as="employee">
+
+                        <tr style="border-left:1px solid black;">
+                            <td><span t-esc="employee['no']"/></td>
+                            <td><span t-esc="employee['tin_number']"/></td>
+                            <td><span t-esc="employee['name']"/></td>
+                            <td><span t-esc="employee['start_date']"/></td>
+                            <td><span t-esc="employee['basic_salary']"/></td>
+                            <td><span t-esc="employee['transport_allowance']"/></td>
+                            <td><span t-esc="employee['taxable_transport_allowance']"/></td>
+                            <td><span t-esc="employee['over_time']"/></td>
+                            <td><span t-esc="employee['other_taxable_benefits']"/></td>
+                            <td><span t-esc="employee['taxable_income']"/></td>
+                            <td><span t-esc="employee['tax_withheld']"/></td>
+                            <td><span t-esc="employee['cost_sharing']"/></td>
+                            <td><span t-esc="employee['net_payment']"/></td>
+                        </tr>
+                    </t>
+
+                            <tr>
+                                <td style="border-left:0;"> </td>
+                                <td style="border-left:0;"> </td>
+                                <td style="border-left:0;"> </td>
+                                <td colspan="6" style="border-bottom:1px solid black; text-align:right; font-weight: bold;">Totals from Previous Contribution Sheet(s) if Used</td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;" colspan="2"> </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td colspan="6" style="border-left:0; text-align:right; font-weight: bold;">Total</td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;" colspan="2"> </td>
+                            </tr>
+                    </table>
+                        <div style="display:flex; justify-content:space-between">
+                            <div style="width:30%">
+                                <p>Section 3 - Calculation of Tax Due for this Period</p>
+                                <table style="width: 100%; border: 1px solid black;">
+                                    <tr>
+                                        <td style="width:10%">10</td>
+                                        <td style="width:70%">Number of Employees on Your Payroll for this Tax Period</td>
+                                        <td style="width:20% text-align:right"> <span t-esc="len(employees)"/> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td style="">Total Taxable Income (From Column j Above)</td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30</td>
+                                        <td>Total Tax Withheld</td>
+                                        <td> </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div style="width:30%">
+                                <p>Section 4 - Employees Removed from Payroll as of this month </p>
+                                <table style="width: 100%; border: 1px solid black;">
+                                    <tr style="background-color: #D3D3D3;">
+                                        <th>Seq Num</th>
+                                        <th>Employee TIN</th>
+                                        <th>Employee's Name<br/> (Name, Father's Name, Grandfather's Name) </th>
+                                    </tr>
+                                    <tr style="height:15px">
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr style="height:15px">
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr style="height:15px">
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr style="height:15px">
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div style="width:30%">
+                                <table style="width: 100%; margin-top:10px; border: 1px solid black; background-color: #D3D3D3;">
+                                    <tr>
+                                        <td style="width:40%">Date of Payment</td>
+                                        <td style="width:60%"> </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>Receipt Number</td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount of Payment</td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cheque Number</td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cashier's Signature</td>
+                                        <td> </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <p style="margin-left:100px">Section 5 - Taxpayer Certification</p>
+                        <table style="border-bottom:1px solid black; border-right:1px solid black;">
+                            <tr>
+                                <td style="width:30%">I declare that the above declaration and all information provide <br/> here-with(including continuation sheets) is correct and complete.<br/> I understand that any misrepresentation is punishable as per the tax <br/> Laws and the Penal code.</td>
+                                <td>
+                                    <div>Taxpayer or Authorized Agent</div>
+                                    <div style="margin-top:5px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Name</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                    <div style="margin-top:5px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Signature</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                    <div style="margin-top:5px; margin-bottom:1px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Date</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                </td>
+                                <td style="font-weight:bold; vertical-align: top; text-align:center;"><div> Employer Seal</div></td>
+                                <td>
+                                    <div><span style="font-weight:bold;">For Tax office:</span> Authorized Tax officer</div>
+                                   <div style="margin-top:5px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Name</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                    <div style="margin-top:5px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Signature</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                    <div style="margin-top:5px; margin-bottom:1px; display:flex; gap:5px; justify-content:space-between ">
+                                        <div>Date</div>
+                                        <div style="border-bottom:1px solid black; width:70%;"> </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="display:flex; justify-content: space-around; margin-top:5px">
+                            <p>Ministry of Revenue</p>
+                            <p style="font-weight:400;">(as of 7/8/2006)</p>
+                            <p>FIRA Form 1103 (1/2006)</p>
+                        </div>
+                    </main>
+                            </t>
+                        <t t-else="">
+                    <main>
+                                              <xpath expr="//div[hasclass('header')]" position="replace">
+                                            <div style=" border: 1px solid black; margin-bottom:40px;">
+                                 <div style="display:flex; border-bottom:1px solid black;">
+                        <div style="width:10%">
+                    <img t-att-src="'/custom_employee_tax_report/static/src/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                        </div>
+                        <div style="width:40%; background-color:black; color:white; text-align:center">
+                            <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
+                            <span>Federal Inland Revenue Authority</span>
+                        </div>
+                        <div style="width:40%; font-weight:bold; display:flex; justify-content:center; align-items:center; text-align:center;">
+                            <span>Employment Income Tax</span>
+
+                        </div>
+                        <div style="width:10%">
+                        <img t-att-src="'/custom_employee_tax_report/static/src/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
+                        </div>
+                    </div>
+                                                <div style="border-top:1px solid black; display:flex; font-size:10px">
+                                                  <div style="width:35%; border-right:1px solid black">
+                                                      1. Taxpayer's Name (Company Name or Your Name, Father's Name,<br/> Grand Father's Name)
+                                                      <span style="margin-left:20px;" t-esc="company['name']"/>
+                                                  </div>
+                                                    <div style="width:35%; border-right:1px solid black">
+                                                        2. Taxpayer Identification number
+                                                        <span style="margin-left:20px;" t-esc="company['vat']"/>
+                                                    </div>
+                                                    <div style="width:15%; border-right:1px solid black">
+                                                        3. Tax Period <br/> month FEB year 2024
+                                                    </div>
+                                                    <div style="width:15%; border-right:1px solid black">
+                                                        Page <span t-esc="line_index + 1"/> of  <span t-esc="len(employees)"/>
+                                                        <br/> Payment Date 10.09.2024
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                 </xpath>
+                        <table style="width: 100%; border: 1px solid black; border-bottom: 0; border-left:0;">
+                        <tr style="border-left:1px solid black;">
+                            <th style="width:4%">a) No.</th>
+                            <th>b) Tin Number</th>
+                            <th style="width:20%">c) Employee name (Name, Father’s Name and Grandfather’s Name)</th>
+                            <th>d) Start Date of Employment</th>
+                            <th>e) Basic Salary</th>
+                            <th>f) Transport Allowance</th>
+                            <th>g) Taxable Transport Allowances</th>
+                            <th>h) Over Time</th>
+                            <th>i) Other Taxable Benefits</th>
+                            <th>j) Taxable Income</th>
+                            <th>k) Tax withheld</th>
+                            <th>L) Cost Sharing</th>
+                            <th>M) Net Payment</th>
+                        </tr>
+                        <t t-foreach="employees[line_index]" t-as="employee">
+
+                        <tr style="border-left:1px solid black;">
+                            <td><span t-esc="employee['no']"/></td>
+                            <td><span t-esc="employee['tin_number']"/></td>
+                            <td><span t-esc="employee['name']"/></td>
+                            <td><span t-esc="employee['start_date']"/></td>
+                            <td><span t-esc="employee['basic_salary']"/></td>
+                            <td><span t-esc="employee['transport_allowance']"/></td>
+                            <td><span t-esc="employee['taxable_transport_allowance']"/></td>
+                            <td><span t-esc="employee['over_time']"/></td>
+                            <td><span t-esc="employee['other_taxable_benefits']"/></td>
+                            <td><span t-esc="employee['taxable_income']"/></td>
+                            <td><span t-esc="employee['tax_withheld']"/></td>
+                            <td><span t-esc="employee['cost_sharing']"/></td>
+                            <td><span t-esc="employee['net_payment']"/></td>
+                        </tr>
+                    </t>
+
+                            <tr>
+                                <td style="border-left:0;"> </td>
+                                <td style="border-left:0;"> </td>
+                                <td style="border-left:0;"> </td>
+                                <td colspan="6" style="border-bottom:1px solid black; text-align:right; font-weight: bold;">Totals from Previous Contribution Sheet(s) if Used</td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;" colspan="2"> </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td style="border-left:0; border-top:0;"> </td>
+                                <td colspan="6" style="border-left:0; text-align:right; font-weight: bold;">Total</td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;"> </td>
+                                <td style="border-bottom:1px solid black;" colspan="2"> </td>
+                            </tr>
+                    </table>
+                        <div style="display:flex; width:80%; justify-content:space-between; margin-top:40px; font-size:12px;">
+                            <div style="display:flex"><div>Name of Taxpayer/Authorized Agent</div>  <div style="border-bottom:1px solid black; width:130px;"> </div></div>
+                            <div style="display:flex"><div>Signature </div>  <div style="border-bottom:1px solid black; width:80px;"> </div></div>
+                            <div style="display:flex"><div> Employer Seal </div>  <div style="border-bottom:1px solid black; width:80px;"> </div></div>
+                        </div>
+                        <div style="display:flex; justify-content: space-between; margin-top:2px;width:90%; font-size:12px;">
+                            <div>Ministry of Revenue</div>
+                            <div style="font-weight:400;">(as of 7/8/2006)</div>
+                            <div>FIRA Form <br/> 1103 (1/2006)</div>
+                        </div>
+
+                    </main>
+                        </t>
+                        <p style="page-break-before:always;"> </p>
+                    </t>
+                </div>
+
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
