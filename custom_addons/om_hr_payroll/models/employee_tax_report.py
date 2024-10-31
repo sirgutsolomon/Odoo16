@@ -1,5 +1,6 @@
 from odoo import models, api
-
+from datetime import date
+import calendar
 class EmployeeTaxReport(models.AbstractModel):
     _name = 'report.om_hr_payroll.report_employee_tax_template'
 
@@ -14,16 +15,18 @@ class EmployeeTaxReport(models.AbstractModel):
         month = ''
         year = ''
         first_payslip_date = None
+        end_of_month_date = None
         if employees:
-            first_employee = employees[1]
-            payslips = self.env['hr.payslip'].search([('employee_id', '=', first_employee.id)], limit=1,
-                                                     order='date_from ASC')
-            if payslips:
-                first_payslip_date = payslips.date_from
-                month = first_payslip_date.strftime('%b').upper()  # E.g., "FEB", "NOV"
-                year = first_payslip_date.strftime('%Y')
-            else:
-                print("No payslips found for the first employee.")
+            for employee in employees:
+                payslips = self.env['hr.payslip'].search([('employee_id', '=', employee.id)], limit=1,
+                                                        order='date_from ASC')
+                if payslips:
+                    first_payslip_date = payslips.date_from
+                    month = first_payslip_date.strftime('%b').upper()  # E.g., "FEB", "NOV"
+                    year = first_payslip_date.strftime('%Y')
+                    break
+                else:
+                    print("No payslips found for the first employee.")
 
         for employee in employees:
             contract = employee.contract_id  
@@ -58,6 +61,9 @@ class EmployeeTaxReport(models.AbstractModel):
 
         if current_batch:
             employee_tax_data.append(current_batch)
+        if(first_payslip_date):
+            last_day = calendar.monthrange(first_payslip_date.year, first_payslip_date.month)[1]
+            end_of_month_date = date(first_payslip_date.year, first_payslip_date.month, last_day).strftime('%d-%m-%Y')
 
         return {
             'company': company,  
@@ -65,5 +71,6 @@ class EmployeeTaxReport(models.AbstractModel):
             'month': month,
             'year':year,
             'end_date_employee':end_date_employee,
-            'first_payslip_date':first_payslip_date
+            'first_payslip_date':first_payslip_date,
+            'end_of_month_date':end_of_month_date
         }
