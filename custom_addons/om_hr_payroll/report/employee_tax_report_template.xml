@@ -13,7 +13,7 @@
                         <t t-if="line_index == 0">
                     <main>
                           <xpath expr="//div[hasclass('header')]" position="replace">
-                    <div style="display:flex; border: 1px solid black;">
+                    <div style="display:flex; border: 1px solid black; margin-top:20px;">
                         <div style="width:10%">
                     <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
                         </div>
@@ -35,7 +35,7 @@
                              body {
                                 margin: 0;
                                 padding: 5px;
-                                width: 800px;
+                                width: 1000px;
                                 margin: 0 auto;
                                 border: 1px solid black;
 
@@ -53,19 +53,19 @@
                             }
                             th {
                                 font-weight: bold;
-                                font-size:10px;
+                                font-size:15px;
                                 border-left: 1px solid black;
                             }
                             td {
                                 text-align: left;
-                                font-size:10px;
+                                font-size:15px;
                                 border-left: 1px solid black;
                                 border-top: 1px solid black;
                             }
                             p{
                             margin:0;
                             font-weight: 700;
-                            font-size: 10px;
+                            font-size: 15px;
                             }
                         </style>
 <!--                        section 1 -->
@@ -348,7 +348,7 @@
                         <img t-att-src="'/om_hr_payroll/static/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
                         </div>
                     </div>
-                                                <div style="border-top:1px solid black; display:flex; font-size:10px">
+                                                <div style="border-top:1px solid black; display:flex; font-size:15px">
                                                   <div style="width:35%; border-right:1px solid black">
                                                       1. Taxpayer's Name (Company Name or Your Name, Father's Name,<br/> Grand Father's Name)
                                                       <span style="margin-left:20px;" t-esc="company['name']"/>
@@ -362,7 +362,7 @@
                                                     </div>
                                                     <div style="width:15%; border-right:1px solid black">
                                                         Page <span t-esc="line_index + 1"/> of  <span t-esc="len(employees)"/>
-                                                        <br/> Payment Date 10.09.2024
+                                                        <br/> Payment Date <span t-esc="end_of_month_date"/>
                                                     </div>
                                                 </div>
 
