@@ -146,6 +146,7 @@
                                         </div>
                                         <field name="private_email" placeholder="e.g. myprivateemail@example.com"/>
                                         <field name="private_phone"/>
+                                        <field name="tin_number"/>
                                         <field name="bank_account_id" context="{'default_partner_id': work_contact_id}" options="{'no_quick_create': True}" readonly="not id"/>
                                         <label for="distance_home_work"/>
                                         <div class="o_row" name="div_km_home_work">

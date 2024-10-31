@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+
+    <!-- Report Action -->
+    <record id="action_employee_tax_report" model="ir.actions.report">
+        <field name="name">Employee Tax Report</field>
+        <field name="model">hr.employee</field>
+        <field name="report_name">om_hr_payroll.report_employee_tax_template</field>
+        <field name="report_type">qweb-html</field>
+    </record>
+
+    <!-- PDF Report Definition -->
+    <report
+        id="employee_tax_report"
+        string="Employee Tax Report"
+        model="hr.employee"
+        report_type="qweb-html"
+        name="om_hr_payroll.report_employee_tax_template"
+        file="om_hr_payroll.report_employee_tax_template"
+        attachment_use="False"
+        paperformat="A4"
+    />
+</odoo>

@@ -60,6 +60,9 @@ class Company(models.Model):
         'res.country.state', compute='_compute_address', inverse='_inverse_state',
         string="Fed. State", domain="[('country_id', '=?', country_id)]"
     )
+    farmers_association = fields.Char(string="Kebele Farmers Association")
+    house_number = fields.Char(string="House Number")
+    tax_center = fields.Char(string="Tax Center")
     bank_ids = fields.One2many(related='partner_id.bank_ids', readonly=False)
     country_id = fields.Many2one('res.country', compute='_compute_address', inverse='_inverse_country', string="Country")
     # Technical field to hide country specific fields in company form view

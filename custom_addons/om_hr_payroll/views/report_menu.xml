@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_employee_tax_report" name="Generate Tax Report" sequence="200" parent="menu_hr_payroll_root" action="om_hr_payroll.action_employee_tax_report"/>
+</odoo>
