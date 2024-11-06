@@ -377,7 +377,7 @@ class HrPayslip(models.Model):
                 #check if the rule can be applied
                 if rule._satisfy_condition(localdict) and rule.id not in blacklist:
                     #compute the amount of the rule
-                    amount, qty, rate = rule._compute_rule(localdict, absent_day=absent_day)
+                    amount, qty, rate = rule._compute_rule(localdict, absent_day=absent_day, code=rule.code, salary_ids =sorted_rules )
                     #check if there is already a rule computed with that code
                     previous_amount = rule.code in localdict and localdict[rule.code] or 0.0
                     #set/overwrite the amount computed for this rule in the localdict
