@@ -87,6 +87,7 @@ class HrSalaryRule(models.Model):
     _description = 'Salary Rule'
 
     name = fields.Char(required=True, translate=True)
+    is_taxable = fields.Boolean("Is Taxable", default=False)
     code = fields.Char(required=True,
         help="The code of salary rules can be used as reference in computation of other rules. "
              "In that case, it is case sensitive.")
@@ -135,7 +136,14 @@ class HrSalaryRule(models.Model):
         ('percentage', 'Percentage (%)'),
         ('fix', 'Fixed Amount'),
         ('code', 'Python Code'),
-        ('timeoff', 'Deduct timeoff')
+        ('timeoff', 'Deduct timeoff'),
+        ('employee_pension_contributions', 'Employee pension contributions'),
+        ('employer_pension_contributions', 'Employer pension contributions'),
+        ('income_tax', 'Income Tax'),
+        ('total_taxable_income','Total taxable income'),
+        ('total_deduction','Total deduction'),
+        ('net_salary','Net salary')
+
     ], string='Amount Type', index=True, required=True, default='fix', help="The computation method for the rule amount.")
     amount_fix = fields.Float(string='Fixed Amount')
     amount_percentage = fields.Float(string='Percentage (%)',
@@ -177,12 +185,13 @@ class HrSalaryRule(models.Model):
         return [(rule.id, rule.sequence) for rule in self] + children_rules
 
     #TODO should add some checks on the type of result (should be float)
-    def _compute_rule(self, localdict, absent_day):
+    def _compute_rule(self, localdict, absent_day, code = '', salary_ids = []):
         """
         :param localdict: dictionary containing the environement in which to compute the rule
         :return: returns a tuple build as the base/amount computed, the quantity and the rate
         :rtype: (float, float, float)
         """
+
 
         self.ensure_one()
         if self.amount_select == 'fix':
@@ -223,6 +232,124 @@ class HrSalaryRule(models.Model):
                         %s
                         """
                     ) % (self.name, self.code, repr(ex)))
+        elif self.amount_select == 'employee_pension_contributions':
+            try:
+                basic_salary = float(safe_eval('contract.wage', localdict)) * 0.07
+                return basic_salary, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating employee pension contributions for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+        elif self.amount_select == 'employer_pension_contributions':
+            try:
+                basic_salary = float(safe_eval('contract.wage', localdict)) * 0.11
+                return basic_salary, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating employer pension contributions for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+        elif self.amount_select == 'total_taxable_income':
+            try:
+                total_taxable_income = 0
+                for salary_rule in salary_ids:
+                    # Assuming taxable earnings have a specific category or flag
+                    if  salary_rule.is_taxable and salary_rule.code != code:
+                        amount, qty, rate = salary_rule._compute_rule(localdict, absent_day, code, salary_ids)
+                        total_taxable_income += amount
+
+                return total_taxable_income, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating total taxable income for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+        elif self.amount_select == 'income_tax':
+            try:
+                income_tax = 0
+                total_taxable_income = 0
+                for salary_rule in salary_ids:
+                    # Assuming taxable earnings have a specific category or flag
+                    if  salary_rule.is_taxable and salary_rule.code != code:
+                        amount, qty, rate = salary_rule._compute_rule(localdict, absent_day, code, salary_ids)
+                        total_taxable_income += amount
+                if total_taxable_income >= 0 and total_taxable_income <= 600:
+                    income_tax = total_taxable_income
+                elif total_taxable_income >= 601 and total_taxable_income <= 1650:
+                    income_tax = total_taxable_income * 0.1 - 60
+                elif total_taxable_income >= 1651 and total_taxable_income <= 3200:
+                    income_tax = total_taxable_income * 0.15 - 142.5
+                elif total_taxable_income >= 3201 and total_taxable_income <= 5250:
+                    income_tax = total_taxable_income * 0.2 - 302.5
+                elif total_taxable_income >= 5251 and total_taxable_income <= 7800:
+                    income_tax = total_taxable_income * 0.25 - 565
+                elif total_taxable_income >= 7801 and total_taxable_income <= 10900:
+                    income_tax = total_taxable_income * 0.3 - 955
+                else:
+                    income_tax = total_taxable_income * 0.35 - 1500
+                return income_tax, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating income tax for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+
+        elif self.amount_select == 'total_deduction':
+            try:
+                total_deduction = 0
+                for salary_rule in salary_ids:
+                    # Assuming taxable earnings have a specific category or flag
+                    if  salary_rule.category_id.code == "DED" and salary_rule.code != code:
+                        amount, qty, rate = salary_rule._compute_rule(localdict, absent_day, code, salary_ids)
+                        total_deduction += amount
+
+                return total_deduction, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating total deduction for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+        elif self.amount_select == 'net_salary':
+            try:
+                total_deduction = 0
+                total_taxable_income = 0
+                for salary_rule in salary_ids:
+
+                    # Assuming taxable earnings have a specific category or flag
+                    if  salary_rule.category_id.code == "ALW" or salary_rule.category_id.code == "BASIC" :
+                        amount, qty, rate = salary_rule._compute_rule(localdict, absent_day, code, salary_ids)
+                        total_taxable_income += amount
+                    if  salary_rule.category_id.code == "DED" and salary_rule.code != code:
+                        amount, qty, rate = salary_rule._compute_rule(localdict, absent_day, code, salary_ids)
+                        total_deduction  += amount
+
+                return total_taxable_income - total_deduction, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except Exception as ex:
+                raise UserError(_(
+                    """
+                    Error calculating net salary for salary rule %s (%s).
+                    Here is the error received:
+                    %s
+                    """
+                ) % (self.name, self.code, repr(ex)))
+
+
 
         else:
                 try:

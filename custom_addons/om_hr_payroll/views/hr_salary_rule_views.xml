@@ -337,6 +337,9 @@
                 <group col="4">
                     <field name="code"/>
                     <field name="sequence"/>
+                    <field name="is_taxable"/>
+
+
                     <field name="active"/>
                     <field name="appears_on_payslip"/>
                     <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
