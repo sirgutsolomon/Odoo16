@@ -88,6 +88,7 @@
                         </div>
                         <group>
                             <group>
+                                <field name="id_no"/>
                                 <field name="work_email" widget="email" placeholder="e.g. johndoe@example.com"/>
                                 <field name="work_phone" widget="phone"/>
                                 <field name="mobile_phone" widget="phone"/>

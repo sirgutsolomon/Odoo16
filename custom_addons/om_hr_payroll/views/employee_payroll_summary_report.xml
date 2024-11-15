@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <data>
+        <template id="report_employee_payroll_summary">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-foreach="employees" t-as="line">
+                    <main>
+                        <div style=" border: 1px solid black;display:flex;font-weight:bold;padding:0px 15px">
+                        <div style="width:50%; display:flex; padding:15px 0 ">
+                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                            <div style="width:70%; text-align:center">
+                                <span t-esc="company['name']"/>
+                            </div>
+                        </div>
+                        <div style="width:50%; border-left:1px solid black; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
+                            <div>Salary Payment Sheet </div>
+                            <div>Payroll Period <span t-esc="payslip_period"/></div>
+                            <div style="font-size:10px; align-self:end; font-weight:normal; width:100%; text-align:right;"><span t-esc="current_date"/></div>
+                        </div>
+                        </div>
+
+                        <style>
+                             body {
+                                margin: 0;
+                                padding: 5px;
+                                width: 1000px;
+                                margin: 0 auto;
+                                border: 1px solid black;
+                            }
+                            main{
+                            margin-bottom:50px;
+                            }
+
+                            .list-unstyled{
+                            display:none;
+                            }
+                            .me-2{
+                            display:none;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            th {
+                                font-weight: bold;
+                                font-size:15px;
+                                border-left: 1px solid black;
+                            }
+                            td {
+                                text-align: left;
+                                font-size:15px;
+                                border-left: 1px solid black;
+                                border-top: 1px solid black;
+                            }
+                            p{
+                            margin:0;
+                            font-weight: 700;
+                            font-size: 15px;
+                            }
+                        </style>
+                        <div style="display:flex; width:30%; justify-content:space-between;font-size:10px;">
+                            <div>Final</div>
+                            <div>Employment Type:-</div>
+                        </div>
+                        <div style="font-weight:bold;margin-top:5px;"> Payroll Area : <span t-esc="headoffice"/></div>
+
+<!--                         <span t-esc="period"/>-->
+                        <table style="width: 95%; border: 1px solid black; border-left:0;">
+                        <tr style="border-left:1px solid black;background-color: #D3D3D3;">
+                            <th style="width:4%">ID NO.</th>
+                            <th>Employee's Name</th>
+                            <th>Basic Salary</th>
+                            <th>Over Time</th>
+                            <th>Other Addition</th>
+                            <th>Allowance</th>
+                            <th>Gross Salary</th>
+                            <th>Income Tax</th>
+                            <th>Other Deduction</th>
+                            <th>Pension</th>
+                            <th>Total Deduction</th>
+                            <th>Net Pay</th>
+
+                        </tr>
+                        <t t-foreach="line" t-as="employee">
+                            <tr style="border-left:1px solid black;">
+                                <td><t t-esc="employee['id_no']"/></td>
+                                <td><t t-esc="employee['name']"/></td>
+                                <td><t t-esc="employee['basic_salary']"/></td>
+                                <td><t t-esc="employee['over_time']"/></td>
+                                <td><t t-esc="employee['other_addition']"/></td>
+                                <td><t t-esc="employee['total_allowance']"/></td>
+                                <td><t t-esc="employee['gross_salary']"/></td>
+                                <td><t t-esc="employee['income_tax']"/></td>
+                                <td><t t-esc="employee['other_deduction']"/></td>
+                                <td><t t-esc="employee['employee_pension']"/></td>
+                                <td><t t-esc="employee['total_deduction']"/></td>
+                                <td><t t-esc="employee['net']"/></td>
+                            </tr>
+                        </t>
+                    </table>
+                    </main>
+                    <div class="footer" style=" text-align: center; margin-top: auto; padding: 10px 20px;">
+                        <div style="display:flex;; justify-content:space-between; margin-top:40px; font-size:12px; font-weight:bold;">
+                            <div style="display:flex"><div>Prepared By:-</div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
+                            <div style="display:flex"><div>Checked By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
+                            <div style="display:flex"><div> Approved By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
+                            <div style="display:flex"><div> Authorized By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
+
+                        </div>
+                        <div style="display:flex; justify-content: end; margin-top:1px; font-size:12px;">
+                            <div style="font-weight:400;">Page <span t-esc="line_index + 1"/> of <span t-esc="len(employees)"/></div>
+                        </div>
+                    </div>
+
+                        <p style="page-break-before:always;"> </p>
+                    </t>
+                </div>
+
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
