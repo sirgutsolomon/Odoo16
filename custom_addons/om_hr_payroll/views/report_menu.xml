@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_employee_tax_report" name="Generate Tax Report" sequence="200" parent="menu_hr_payroll_root" action="om_hr_payroll.action_employee_tax_report"/>
+    <menuitem id="menu_employee_tax_report_wizard"
+          name="Employee Payroll Summary"
+          sequence="300" parent="menu_hr_payroll_root"
+          action="action_employee_tax_report_wizard"/>
+    <menuitem id="menu_employee_bank_statement"
+          name="Employee Bank Statement"
+          sequence="400" parent="menu_hr_payroll_root"
+          />
+    <menuitem id="menu_employee_payroll_report"
+          name="Employee Payroll Report"
+          sequence="200" parent="menu_employee_bank_statement"
+          action="action_employee_bank_statement"/>
+
+    <menuitem id="menu_employee_bank_letter_wizard"
+          name="Employee Bank Letter "
+          sequence="300" parent="menu_employee_bank_statement"
+          action="action_employee_tax_report_wizard"/>
+    <menuitem id="menu_export_payslips_excel"
+              name="Export to Excel"
+              parent="menu_employee_bank_statement"
+              action="action_export_excel_menu"
+              sequence="10"/>
+
 </odoo>
+

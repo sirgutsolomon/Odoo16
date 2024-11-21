@@ -6,4 +6,10 @@ from . import hr_salary_rule
 from . import hr_payslip
 from . import resource_mixin
 from . import employee_tax_report
-
+from . import employee_payroll_summary_wizard
+from . import employee_payroll_summary_report
+from . import employee_bank_statment_report
+from . import employee_bank_letter_report
+from . import employee_bank_letter_wizard
+from . import employee_tax_income_tax_excel
+from . import employee_tax_income_tax_action_resptor

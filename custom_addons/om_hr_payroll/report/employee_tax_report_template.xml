@@ -43,6 +43,9 @@
                             main{
                             margin-bottom:50px;
                             }
+                            .me-2{
+                            display:none;
+                            }
 
                             .list-unstyled{
                             display:none;
