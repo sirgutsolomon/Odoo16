@@ -13,3 +13,4 @@ from . import employee_bank_letter_report
 from . import employee_bank_letter_wizard
 from . import employee_tax_income_tax_excel
 from . import employee_tax_income_tax_action_resptor
+from . import employee_bank_statment_wizard

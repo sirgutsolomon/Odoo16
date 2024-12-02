@@ -14,7 +14,11 @@ from odoo.exceptions import ValidationError, AccessError
 from odoo.osv import expression
 from odoo.tools import convert, format_date
 
+class HrBranch(models.Model):
+    _name = 'hr.branch'
+    _description = 'Employee Branch'
 
+    name = fields.Char(string="Branch Name", required=True)
 class HrEmployeePrivate(models.Model):
     """
     NB: Any field only available on the model hr.employee (i.e. not on the
@@ -44,6 +48,7 @@ class HrEmployeePrivate(models.Model):
         check_company=True,
         precompute=True,
         ondelete='restrict')
+    employee_branch = fields.Many2one('hr.branch', string="Employee Branch", groups="hr.group_hr_user")
     user_partner_id = fields.Many2one(related='user_id.partner_id', related_sudo=False, string="User's partner")
     active = fields.Boolean('Active', related='resource_id.active', default=True, store=True, readonly=False)
     resource_calendar_id = fields.Many2one(tracking=True)

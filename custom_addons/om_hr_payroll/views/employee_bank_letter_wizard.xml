@@ -11,6 +11,9 @@
                     <field name="company_bank_account"/>
                     <field name="company_bank_account_branch"/>
                     <field name="company_branch"/>
+                    <field name="employee_branch" string="Employee Branch"/>
+                    <field name="month" string="Payroll Month"/>
+                    <field name="year" string="Payroll Year"/>
                 </group>
                 <footer>
                     <button name="action_print_report" type="object" string="Print" class="btn-primary"/>

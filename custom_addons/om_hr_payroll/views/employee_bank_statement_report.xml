@@ -6,24 +6,7 @@
         <template id="report_employee_bank_statement_report">
             <t t-call="web.external_layout">
                 <div class="page">
-                    <t t-foreach="employees" t-as="line">
-                    <main>
-                        <div style="display:flex; justify-content:space-between;">
-                        <div style="width:70%; padding:15px 0 ">
-                            <div style=" font-size:35px; color:#C3C3C3;font-weight:800">
-                                <span t-esc="company['name']"/>
-                            </div>
-                            <div style=" font-size:35px; color:#C3C3C3;font-weight:800">
-                                Employees Payroll
-                            </div>
-                            <div>Payroll Period <span t-esc="payslip_period"/></div>
-                        </div>
-                        <div style="width:20%; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
-                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
-                        </div>
-                        </div>
-
-                        <style>
+                <style>
                              body {
                                 margin: 0;
                                 padding: 5px;
@@ -33,6 +16,9 @@
                             }
                             main{
                             margin-bottom:50px;
+                            }
+                            .o_company_logo_small{
+                            display:none;
                             }
 
                             .list-unstyled{
@@ -62,6 +48,29 @@
                             font-size: 15px;
                             }
                         </style>
+
+                     <t t-if="len(employees) == 0">
+                        <main>
+                            <h3>No Employees In The Selected Period</h3>
+                        </main>
+                    </t>
+                    <t t-foreach="employees" t-as="line">
+                    <main>
+                        <div style="display:flex; justify-content:space-between;">
+                        <div style="width:70%; padding:15px 0 ">
+                            <div style=" font-size:35px; color:#C3C3C3;font-weight:800">
+                                <span t-esc="company['name']"/>
+                            </div>
+                            <div style=" font-size:35px; color:#C3C3C3;font-weight:800">
+                                Employees Payroll
+                            </div>
+                            <div>Payroll Period <span t-esc="payslip_period"/></div>
+                        </div>
+                        <div style="width:20%; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
+                            <img t-att-src="image_data_uri(company.logo_web)"  style="width: 130px; height:100px"/>
+                        </div>
+                        </div>
+
                         <div style="margin-top:5px;"> Print Date: <span t-esc="current_date"/></div>
                         <table style="width: 95%; border: 1px solid black; border-left:0;">
                         <tr style="border-left:1px solid black;background-color: #D3D3D3;">

@@ -27,8 +27,23 @@ class PayslipExportController(http.Controller):
         sheet.write(0, 10, "Tax Withheld", bold)
         sheet.write(0, 11, "Cost Sharing", bold)
 
-        # Populate data
-        payslips = request.env['hr.payslip'].search([])
+        month = kwargs.get('month')
+        year = kwargs.get('year')
+        branch_id = kwargs.get('branch_id')
+        if not month or not year:
+            return request.not_found()
+
+        # Calculate start and end dates for the selected month
+        import calendar
+        last_day = calendar.monthrange(int(year), int(month))[1]
+        start_date = f"{year}-{month}-01"
+        end_date = f"{year}-{month}-{last_day}"
+        domain = [('state', '=', 'done'),
+                  ('date_from', '>=', start_date),
+                  ('date_to', '<=', end_date), ]
+        if branch_id:
+            domain.append(('employee_id.employee_branch', '=', int(branch_id)))
+        payslips = request.env['hr.payslip'].search(domain)
         row = 1
         for payslip in payslips:
             employee_info = payslip.employee_id
@@ -51,6 +66,8 @@ class PayslipExportController(http.Controller):
                     taxable_transport_allowance += int(line.total)
                 if line.category_id.name == "Taxable":
                     other_taxable_benefit += int(line.total)
+                if line.category_id.name == "Taxable" and line.code != 'TAXABLETRANSPORTALLOWANCE':
+                    total_taxable_income += int(line.total)
                 if (line.code == 'INCOMETAX'):
                     tax_witheld += int(line.total)
             sheet.write(row, 5, transport_allowance)

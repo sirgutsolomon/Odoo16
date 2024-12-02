@@ -1,7 +1,7 @@
 # custom_addons/om_hr_payroll/models/employee_tax_report.py
 
 from odoo import models, api
-
+import calendar
 from datetime import datetime
 class EmployeeBankLetterReport(models.AbstractModel):
     _name = 'report.om_hr_payroll.employee_bank_letter_report'
@@ -11,7 +11,19 @@ class EmployeeBankLetterReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         company = self.env.company
         currency = company.currency_id
-        payslips = self.env['hr.payslip'].search([('state','=','done')])  # Get all employees or apply any filters as needed
+        selected_month = data.get('month')
+        selected_year = data.get('year')
+        start_date = f"{selected_year}-{selected_month}-01"
+        last_day = calendar.monthrange(int(selected_year), int(selected_month))[1]
+
+        end_date = f"{selected_year}-{selected_month}-{last_day}"  # Covers all possible dates in the month
+        branch_id = data.get('branch_id')
+        domain = [('state', '=', 'done'),
+                  ('date_from', '>=', start_date),
+                  ('date_to', '<=', end_date), ]
+        if branch_id:
+            domain.append(('employee_id.employee_branch', '=', int(branch_id)))
+        payslips = self.env['hr.payslip'].search(domain)
 
         single_page_employee = []
         net = 0

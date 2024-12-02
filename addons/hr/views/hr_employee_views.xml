@@ -92,6 +92,7 @@
                                 <field name="work_email" widget="email" placeholder="e.g. johndoe@example.com"/>
                                 <field name="work_phone" widget="phone"/>
                                 <field name="mobile_phone" widget="phone"/>
+                                <field name="employee_branch"/>
                                 <field name="category_ids" widget="many2many_tags"
                                     options="{'color_field': 'color', 'no_create_edit': True}"
                                     placeholder="Tags" groups="hr.group_hr_user"/>

@@ -5,24 +5,9 @@
     <data>
         <template id="report_employee_payroll_summary">
             <t t-call="web.external_layout">
-                <div class="page">
-                    <t t-foreach="employees" t-as="line">
-                    <main>
-                        <div style=" border: 1px solid black;display:flex;font-weight:bold;padding:0px 15px">
-                        <div style="width:50%; display:flex; padding:15px 0 ">
-                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
-                            <div style="width:70%; text-align:center">
-                                <span t-esc="company['name']"/>
-                            </div>
-                        </div>
-                        <div style="width:50%; border-left:1px solid black; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
-                            <div>Salary Payment Sheet </div>
-                            <div>Payroll Period <span t-esc="payslip_period"/></div>
-                            <div style="font-size:10px; align-self:end; font-weight:normal; width:100%; text-align:right;"><span t-esc="current_date"/></div>
-                        </div>
-                        </div>
 
-                        <style>
+                <div class="page">
+                                        <style>
                              body {
                                 margin: 0;
                                 padding: 5px;
@@ -32,6 +17,9 @@
                             }
                             main{
                             margin-bottom:50px;
+                            }
+                            .o_company_logo_small{
+                            display:none;
                             }
 
                             .list-unstyled{
@@ -61,11 +49,32 @@
                             font-size: 15px;
                             }
                         </style>
+                    <t t-if="len(employees) == 0">
+                        <main>
+                            <h3>No Employees In The Selected Period</h3>
+                        </main>
+                    </t>
+                    <t t-foreach="employees" t-as="line">
+                    <main>
+                        <div style=" border: 1px solid black;display:flex;font-weight:bold;padding:0px 15px">
+                        <div style="width:50%; display:flex; padding:5px 0 ">
+                            <img t-att-src="image_data_uri(company.logo_web)"  style="width: 130px; height:90px"/>
+                            <div style="width:70%; text-align:center; padding:10px 0">
+                                <span t-esc="company['name']"/>
+                            </div>
+                        </div>
+                        <div style="width:50%; border-left:1px solid black; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
+                            <div>Salary Payment Sheet </div>
+                            <div>Payroll Period <span t-esc="payslip_period"/></div>
+                            <div style="font-size:10px; align-self:end; font-weight:normal; width:100%; text-align:right;"><span t-esc="current_date"/></div>
+                        </div>
+                        </div>
+
                         <div style="display:flex; width:30%; justify-content:space-between;font-size:10px;">
                             <div>Final</div>
                             <div>Employment Type:-</div>
                         </div>
-                        <div style="font-weight:bold;margin-top:5px;"> Payroll Area : <span t-esc="headoffice"/></div>
+                        <div style="font-weight:bold;margin-top:5px;"> Branch : <span t-esc="headoffice"/></div>
 
 <!--                         <span t-esc="period"/>-->
                         <table style="width: 95%; border: 1px solid black; border-left:0;">

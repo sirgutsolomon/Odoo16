@@ -2,6 +2,7 @@
 
 from odoo import models, api
 from datetime import datetime
+import calendar
 class EmployeeTaxReport(models.AbstractModel):
     _name = 'report.om_hr_payroll.report_employee_payroll_summary'
     _description = 'Employee Payroll Summary'
@@ -10,18 +11,27 @@ class EmployeeTaxReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         # Retrieve data passed from wizard
         headoffice = data.get('headoffice')
+        selected_month = data.get('month')
+        selected_year = data.get('year')
+        start_date = f"{selected_year}-{selected_month}-01"
+        last_day = calendar.monthrange(int(selected_year), int(selected_month))[1]
 
-        # Fetch company and employee details, process as needed
+        end_date = f"{selected_year}-{selected_month}-{last_day}"  # Covers all possible dates in the month
+
         company = self.env.company
-        payslips = self.env['hr.payslip'].search([('state','=','done')])  # Get all employees or apply any filters as needed
+        branch_id = data.get('branch_id')
+        domain = [('state','=','done'),
+            ('date_from', '>=', start_date),
+            ('date_to', '<=', end_date),]
+        if branch_id:
+            domain.append(('employee_id.employee_branch', '=', int(branch_id)))
+        payslips = self.env['hr.payslip'].search(domain)
 
         employee_tax_data = []
-        payslip_period = ''
-        current_date = datetime.now().strftime('%d-%m-%y')
+        payslip_period = f"{selected_month}.{selected_year}"
+        current_date = datetime.now().strftime('%d.%m.%y')
         single_page_employee = []
         for payslip in payslips:
-            if(payslip.date_from):
-                payslip_period = payslip.date_from.strftime('%Y-%m')
 
             employee = payslip.employee_id
             totalAllowance = 0

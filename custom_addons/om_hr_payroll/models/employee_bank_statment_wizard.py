@@ -1,10 +1,9 @@
 from odoo import models, fields, api
 
-class EmployeeTaxReportWizard(models.TransientModel):
-    _name = 'employee.payroll.summary.wizard'
-    _description = 'Employee Tax Report Wizard'
+class EmployeeBankStatementWizard(models.TransientModel):
+    _name = 'employee.bank.statement.wizard'
+    _description = 'Employee Bank Statement Wizard'
 
-    headoffice = fields.Char(string="Head Office", required=True)
     month = fields.Selection(
         selection=[
             ('01', 'January'),
@@ -30,14 +29,13 @@ class EmployeeTaxReportWizard(models.TransientModel):
         required=False
     )
 
-
     def action_print_report(self):
         # Data to be passed to the report
         data = {
-            'headoffice': self.headoffice,
-            'month':self.month,
-            'year':self.year,
-            'branch_id':self.employee_branch.id,
+            'month': self.month,
+            'year': self.year,
+            'branch_id': self.employee_branch.id,
+
         }
         # Call the report action for the HTML preview
-        return self.env.ref('om_hr_payroll.action_employee_payroll_summary').report_action(self, data=data)
+        return self.env.ref('om_hr_payroll.action_employee_bank_statement').report_action(self, data=data)
