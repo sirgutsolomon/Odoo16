@@ -52,6 +52,12 @@
                         <field name="travel_allowance" nolabel="1"/>
                         <span>/ month</span>
                     </div>
+                    <label for="taxable_travel_allowance"/>
+                    <div class="o_row">
+
+                        <field name="taxable_travel_allowance" nolabel="1"/>
+                        <span>/ month</span>
+                    </div>
                     <label for="meal_allowance"/>
                     <div class="o_row">
 

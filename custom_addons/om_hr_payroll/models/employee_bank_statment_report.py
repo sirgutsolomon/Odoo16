@@ -11,7 +11,6 @@ class EmployeeBankStatementReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         company = self.env.company
         username = self.env.user.name
-        payslips = self.env['hr.payslip'].search([('state','=','done')])
         selected_month = data.get('month')
         selected_year = data.get('year')
         start_date = f"{selected_year}-{selected_month}-01"

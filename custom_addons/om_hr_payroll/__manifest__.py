@@ -51,6 +51,7 @@
         "views/employee_bank_letter_wizard.xml",
         "views/employee_bank_statement_wizard.xml",
         "views/employee_tax_income_excel_wizard.xml",
+        "views/employee_tax_report_wizard.xml",
 
         'views/report_menu.xml',  # Menu item for reports access
         'data/mail_template.xml',
