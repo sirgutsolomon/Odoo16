@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <data>
+        <template id="employee_bank_letter_report">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <main>
+                        <style>
+                             body {
+                                margin: 0;
+                                padding: 5px;
+                                width: 1000px;
+                                margin: 0 auto;
+                                border: 1px solid black;
+                            }
+                            .o_company_logo_small{
+                            display:none;
+                            }
+                            main{
+                            margin-bottom:50px;
+                            }
+
+                            .list-unstyled{
+                            display:none;
+                            }
+                            .me-2{
+                            display:none;
+                            }
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                            }
+                            th {
+                                font-weight: bold;
+                                font-size:15px;
+                                border-left: 1px solid black;
+                            }
+                            td {
+                                text-align: left;
+                                font-size:15px;
+                                border-left: 1px solid black;
+                                border-top: 1px solid black;
+                            }
+                            p{
+                            margin:0;
+                            font-weight: 700;
+                            font-size: 15px;
+                            }
+                        </style>
+
+                    <div>
+
+                        <div style="font-weight:bold; margin-top:80px; font-size:20px"><span t-esc="bank_name"> </span></div>
+                        <div style="font-weight:bold; margin-top:20px; font-size:20px">Branch <span style="border-bottom:1px solid black;" ><span t-esc="bank_branch"> </span></span></div>
+                        <div style="width:85%; margin-top:10px; word-spacing:5px; font-weight:600">
+                            By Debiting our Account No <span style="border-bottom:1px solid black;"><span t-esc="company_bank_account"> </span> </span>  <span t-esc="company['name']"> </span> <span style="border-bottom:1px solid black;" ><span t-esc="company_bank_account_branch"> </span> </span>
+                            branch. We request you transfer of Birr <span t-esc="net"> </span> / (<span t-esc="net_in_words"> </span>) to <span t-esc="company['name']"> </span> employees on the attached list of name and account at
+                            <span t-esc="bank_name"> </span>. This transfer represents <span t-esc="company['name']"> </span> salary branch <span style="border-bottom:1px solid black;" t-esc="company_branch"> </span> for the month of August
+                        </div>
+
+                    </div>
+
+                    <div style=" text-align: center; margin-top: auto; padding: 10px 20px; width:80%;">
+                        <div style="display:flex;; justify-content:space-between; margin-top:40px; font-weight:bold;">
+                            <div style="border-top:2px dashed black;font-weight:bold; padding-top:10px; font-size:20px;"><div style="font-size:20px;">Authorized Signature</div></div>
+                            <div style="border-top:2px dashed black;font-weight:bold; padding-top:10px; font-size:20px;"><div style="font-size:20px;">Authorized Signature</div></div>
+                        </div>
+                        <div style="display:flex; justify-content: end; margin-top:1px; font-size:12px;">
+                        </div>
+                    </div>
+
+                        <p style="page-break-before:always;"> </p>
+
+                    </main>
+                </div>
+
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

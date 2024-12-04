@@ -40,8 +40,14 @@
                                 border: 1px solid black;
 
                             }
+                            .o_company_logo_small{
+                            display:none;
+                            }
                             main{
                             margin-bottom:50px;
+                            }
+                            .me-2{
+                            display:none;
                             }
 
                             .list-unstyled{

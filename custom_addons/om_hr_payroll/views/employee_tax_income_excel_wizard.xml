@@ -1,0 +1,29 @@
+<!--employee payroll summary wizard view-->
+<odoo>
+    <record id="view_employee_income_tax_excel_wizard" model="ir.ui.view">
+        <field name="name">employee.income.tax.excel.wizard.form</field>
+        <field name="model">employee.income.tax.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Employee Tax Income Excel">
+                <group>
+                    <field name="month" string="Payroll Month"/>
+                    <field name="year" string="Payroll Year"/>
+                    <field name="employee_branch" string="Employee Branch"/>
+
+                </group>
+                <footer>
+                    <button name="action_export_excel" type="object" string="Print" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+<record id="action_employee_income_tax_excel_wizard" model="ir.actions.act_window">
+        <field name="name">Employee Income Tax Excel</field>
+        <field name="res_model">employee.income.tax.excel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -141,6 +141,8 @@ class HrSalaryRule(models.Model):
         ('employer_pension_contributions', 'Employer pension contributions'),
         ('income_tax', 'Income Tax'),
         ('total_taxable_income','Total taxable income'),
+        ('taxable_travel_allowance', 'Taxable Travel Allowance'),
+
         ('total_deduction','Total deduction'),
         ('net_salary','Net salary')
 
@@ -206,6 +208,13 @@ class HrSalaryRule(models.Model):
                         self.amount_percentage)
             except:
                 raise UserError(_('Wrong percentage base or quantity defined for salary rule %s (%s).') % (self.name, self.code))
+        elif self.amount_select == 'taxable_travel_allowance':
+            try:
+                taxable_transport = float(safe_eval('contract.taxable_travel_allowance', localdict))
+                return taxable_transport, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            except:
+                raise UserError(
+                    _('Wrong taxable transport allowance defined for salary rule %s (%s).') % (self.name, self.code))
         elif self.amount_select == 'timeoff':
                 try:
                     working_set = localdict.get('worked_days', {})
@@ -220,7 +229,9 @@ class HrSalaryRule(models.Model):
                     daily_salary_rate = basic_salary / number_of_working_days if number_of_working_days > 0 else 0
 
                     # Calculate Actual Monthly Basic Salary
-                    actual_monthly_basic_salary = basic_salary - (absent_day * daily_salary_rate)
+                    if number_of_working_days == 0:
+                        number_of_working_days = 1
+                    actual_monthly_basic_salary = basic_salary - (absent_day * daily_salary_rate/number_of_working_days)
 
                     # Returning the result: (amount, quantity, rate)
                     return actual_monthly_basic_salary, 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0

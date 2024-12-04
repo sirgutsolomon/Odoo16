@@ -39,6 +39,20 @@
         'views/hr_leave_type_view.xml',
         'report/report_action.xml',  # Action to render the reports
         "report/employee_tax_report_template.xml",
+        "report/employee_payroll_summary_action.xml",
+        "report/employee_bank_statement_action.xml",
+        "report/employee_bank_letter_action.xml",
+        "report/employee_tax_income_excel_export_action.xml",
+
+        "views/employee_payroll_summary_report.xml",
+        "views/employee_payroll_summary_wizard.xml",
+        "views/employee_bank_statement_report.xml",
+        "views/employee_bank_letter_report.xml",
+        "views/employee_bank_letter_wizard.xml",
+        "views/employee_bank_statement_wizard.xml",
+        "views/employee_tax_income_excel_wizard.xml",
+        "views/employee_tax_report_wizard.xml",
+
         'views/report_menu.xml',  # Menu item for reports access
         'data/mail_template.xml',
     ],
