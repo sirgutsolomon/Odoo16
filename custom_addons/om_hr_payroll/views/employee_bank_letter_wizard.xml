@@ -24,7 +24,7 @@
     </record>
 
 
-<record id="action_employee_tax_report_wizard" model="ir.actions.act_window">
+<record id="action_employee_bank_letter_wizard" model="ir.actions.act_window">
         <field name="name">Employee Bank Letter Wizard</field>
         <field name="res_model">employee.bank.letter.wizard</field>
         <field name="view_mode">form</field>

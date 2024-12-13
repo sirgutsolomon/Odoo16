@@ -9,8 +9,6 @@
                     <field name="month" string="Payroll Month"/>
                     <field name="year" string="Payroll Year"/>
                     <field name="employee_branch" string="Employee Branch"/>
-
-
                 </group>
                 <footer>
                     <button name="action_print_report" type="object" string="Print" class="btn-primary"/>

@@ -5,33 +5,7 @@
     <data>
         <template id="report_employee_tax_template">
             <t t-call="web.external_layout">
-
-
-                
-                <div class="page">
-                    <t t-foreach="employees" t-as="line">
-                        <t t-if="line_index == 0">
-                    <main>
-                          <xpath expr="//div[hasclass('header')]" position="replace">
-                    <div style="display:flex; border: 1px solid black; margin-top:20px;">
-                        <div style="width:10%">
-                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
-                        </div>
-                        <div style="width:40%; background-color:black; color:white; text-align:center">
-                            <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
-                            <span>Federal Inland Revenue Authority</span>
-                        </div>
-                        <div style="width:40%; font-weight:bold; display:flex; justify-content:center; align-items:center; text-align:center;">
-                            <span>Employment Income Tax <br/> Declaration</span>
-
-                        </div>
-                        <div style="width:10%">
-                        <img t-att-src="'/om_hr_payroll/static/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
-                        </div>
-                    </div>
-                 </xpath>
-
-                        <style>
+                                        <style>
                              body {
                                 margin: 0;
                                 padding: 5px;
@@ -74,6 +48,36 @@
                             font-size: 15px;
                             }
                         </style>
+
+                <t t-if="len(employees) == 0">
+                        <main>
+                            <h3>No Employees In The Selected Period</h3>
+                        </main>
+                    </t>
+                
+                <div class="page">
+                    <t t-foreach="employees" t-as="line">
+                        <t t-if="line_index == 0">
+                    <main>
+                          <xpath expr="//div[hasclass('header')]" position="replace">
+                    <div style="display:flex; border: 1px solid black; margin-top:20px;">
+                        <div style="width:10%">
+                    <img t-att-src="'/om_hr_payroll/static/img/flag.jpg'" alt="Company Logo" style="width: 80px; height:70px"/>
+                        </div>
+                        <div style="width:40%; background-color:black; color:white; text-align:center">
+                            <span>Federal Democratic Republic of Ethiopia<br/> Ministry of Revenue </span><br/>
+                            <span>Federal Inland Revenue Authority</span>
+                        </div>
+                        <div style="width:40%; font-weight:bold; display:flex; justify-content:center; align-items:center; text-align:center;">
+                            <span>Employment Income Tax <br/> Declaration</span>
+
+                        </div>
+                        <div style="width:10%">
+                        <img t-att-src="'/om_hr_payroll/static/img/gebiwoch.jpg'" alt="Company Logo" style="width: 80px; height:70px; border-left:1px solid black;"/>
+                        </div>
+                    </div>
+                 </xpath>
+
 <!--                        section 1 -->
                         <div style="margin-top:5px; margin-bottom:10px">
                             <h4 style="text-align:center; margin-bottom:0; margin-top:0;">Section 1 - Taxpayer Information</h4>

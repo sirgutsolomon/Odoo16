@@ -21,9 +21,12 @@
 
 
 <record id="action_employee_payroll_summary_wizard" model="ir.actions.act_window">
-        <field name="name">Employee Tax Report Wizard</field>
+        <field name="name">Employee Payroll Summary Wizard</field>
         <field name="res_model">employee.payroll.summary.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 </odoo>
+
+<!--employee payroll summary wizard view-->
+

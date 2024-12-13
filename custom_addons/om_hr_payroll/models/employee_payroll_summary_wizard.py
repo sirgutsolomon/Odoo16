@@ -1,8 +1,8 @@
 from odoo import models, fields, api
 
-class EmployeeTaxReportWizard(models.TransientModel):
+class EmployeePayrollSummary(models.TransientModel):
     _name = 'employee.payroll.summary.wizard'
-    _description = 'Employee Tax Report Wizard'
+    _description = 'Employee Payroll Summary Wizard'
 
     headoffice = fields.Char(string="Head Office", required=True)
     month = fields.Selection(
