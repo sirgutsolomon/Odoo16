@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="adv_account_payment_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+<!--            <field name="is_internal_transfer" position="before">-->
+<!--                <field name="is_advance_payment" readonly="1" force_save="1" invisible="1" />-->
+<!--            </field>-->
+<!--            <field name="is_internal_transfer" position="attributes">-->
+<!--                <attribute name="readonly">[('state', '!=', 'draft')]</attribute>-->
+<!--                <attribute name="invisible">[('is_advance_payment','=',True)]</attribute>-->
+<!--            </field>-->
+            <field name="payment_type" position="attributes">
+                <attribute name="invisible">[('is_advance_payment','=',True)]</attribute>
+                <attribute name="readonly">[('state', '!=', 'draft')]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_account_payments_advance_customer" model="ir.actions.act_window">
+        <field name="name">Advance Payments</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">list,kanban,form,graph</field>
+        <field name="context">{
+            'default_payment_type': 'inbound',
+            'default_partner_type': 'customer',
+            'search_default_inbound_filter': 1,
+            'default_move_journal_types': ('bank', 'cash'),
+            'default_is_advance_payment':True,
+            }</field>
+        <field name="domain">[('is_advance_payment','=',True),('payment_type','=','inbound')]</field>
+        <field name="view_id" ref="account.view_account_payment_tree" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Customer Advance Payment
+            </p>
+            <p>
+                System can automatically reconcile customer advance payments, saving time and
+                reducing errors in the process.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_account_advance_payments_receivable"
+        action="action_account_payments_advance_customer" sequence="16"
+        parent="account.menu_finance_receivables" />
+
+
+    <record id="action_account_payments_advance_vendor" model="ir.actions.act_window">
+        <field name="name">Advance Payments</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">list,kanban,form,graph</field>
+        <field name="context">{
+            'default_payment_type': 'outbound',
+            'default_partner_type': 'supplier',
+            'search_default_outbound_filter': 1,
+            'default_move_journal_types': ('bank', 'cash'),
+            'default_is_advance_payment':True,
+            }</field>
+        <field name="domain">[('is_advance_payment','=',True),('payment_type','=','outbound')]</field>
+        <field name="view_id" ref="account.view_account_payment_tree" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Customer Advance Payment
+            </p>
+            <p>
+                System can automatically reconcile vendor advance payments, saving time and reducing
+                errors in the process.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_account_advance_payments_payable"
+        action="action_account_payments_advance_vendor" sequence="21"
+        parent="account.menu_finance_payables" />
+
+</odoo>

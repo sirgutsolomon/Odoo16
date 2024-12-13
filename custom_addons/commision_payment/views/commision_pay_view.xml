@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Driver Form View -->
+    <record id="view_driver_form" model="ir.ui.view">
+        <field name="name">ride.driver.form</field>
+        <field name="model">ride.driver</field>
+        <field name="arch" type="xml">
+            <form string="Driver">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="balance"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Driver List View -->
+    <record id="view_driver_list" model="ir.ui.view">
+        <field name="name">ride.driver.list</field>
+        <field name="model">ride.driver</field>
+        <field name="arch" type="xml">
+            <list string="Driver List">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="balance"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Trip Form View -->
+    <record id="view_trip_form" model="ir.ui.view">
+        <field name="name">ride.trip.form</field>
+        <field name="model">ride.trip</field>
+        <field name="arch" type="xml">
+            <form string="Trip">
+                <sheet>
+                    <group>
+                        <field name="driver_id"/>
+                        <field name="trip_amount"/>
+                        <field name="commission_rate"/>
+                        <field name="commission_amount" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <button string="Deduct Commission" type="object" name="action_deduct_commission" class="oe_highlight" />
+                    </group>
+<!--                    <footer>-->
+<!--                    </footer>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Trip List View -->
+    <record id="view_trip_list" model="ir.ui.view">
+        <field name="name">ride.trip.list</field>
+        <field name="model">ride.trip</field>
+        <field name="arch" type="xml">
+            <list string="Trip List">
+                <field name="driver_id"/>
+                <field name="trip_amount"/>
+                <field name="commission_rate"/>
+                <field name="commission_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+</odoo>
