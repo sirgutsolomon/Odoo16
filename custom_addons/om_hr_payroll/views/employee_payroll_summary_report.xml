@@ -111,7 +111,7 @@
                         </t>
                     </table>
                     </main>
-                    <div class="footer" style=" text-align: center; margin-top: auto; padding: 10px 20px;">
+                    <div class="" style=" text-align: center; margin-top: auto; padding: 10px 20px;">
                         <div style="display:flex;; justify-content:space-between; margin-top:40px; font-size:12px; font-weight:bold;">
                             <div style="display:flex"><div>Prepared By:-</div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
                             <div style="display:flex"><div>Checked By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>

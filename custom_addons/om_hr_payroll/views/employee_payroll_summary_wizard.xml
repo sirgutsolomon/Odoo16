@@ -1,6 +1,6 @@
 <!--employee payroll summary wizard view-->
 <odoo>
-    <record id="view_employee_tax_report_wizard" model="ir.ui.view">
+    <record id="view_employee_payroll_summary_wizard" model="ir.ui.view">
         <field name="name">employee.payroll.summary.wizard.form</field>
         <field name="model">employee.payroll.summary.wizard</field>
         <field name="arch" type="xml">

@@ -15,3 +15,4 @@ access_hr_departure_reason,access_hr_departure_reason_user,model_hr_departure_re
 access_hr_contract_type_manager,hr.contract.type.manager,model_hr_contract_type,hr.group_hr_user,1,1,1,1
 access_mail_activity_plan_hr_manager,mail.activity.plan.hr.manager,mail.model_mail_activity_plan,hr.group_hr_manager,1,1,1,1
 access_mail_activity_plan_template_hr_manager,mail.activity.plan.template.hr.manager,mail.model_mail_activity_plan_template,hr.group_hr_manager,1,1,1,1
+access_hr_branch_all_users,access_hr_branch_all_users,model_hr_branch,,1,1,1,1
