@@ -2,6 +2,7 @@ import io
 import xlsxwriter
 from odoo import http
 from odoo.http import content_disposition, request
+from datetime import datetime
 
 class PayslipExportController(http.Controller):
     @http.route('/web/export/payslip_excel', type='http', auth="user")
@@ -50,7 +51,7 @@ class PayslipExportController(http.Controller):
             employee_contract = employee_info.contract_id
             sheet.write(row, 0, employee_info.tin_number)
             sheet.write(row, 1, employee_info.name)
-            sheet.write(row, 2, employee_contract.date_start)
+            sheet.write(row, 2, employee_contract.date_start.strftime('%d-%m-%Y'))
             # No thrid column
             sheet.write(row, 4, employee_contract.wage)
             transport_allowance = 0

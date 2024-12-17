@@ -57,7 +57,7 @@
                         <div style="width:85%; margin-top:10px; word-spacing:5px; font-weight:600">
                             By Debiting our Account No <span style="border-bottom:1px solid black;"><span t-esc="company_bank_account"> </span> </span>  <span t-esc="company['name']"> </span> <span style="border-bottom:1px solid black;" ><span t-esc="company_bank_account_branch"> </span> </span>
                             branch. We request you transfer of Birr <span t-esc="net"> </span> / (<span t-esc="net_in_words"> </span>) to <span t-esc="company['name']"> </span> employees on the attached list of name and account at
-                            <span t-esc="bank_name"> </span>. This transfer represents <span t-esc="company['name']"> </span> salary branch <span style="border-bottom:1px solid black;" t-esc="company_branch"> </span> for the month of August
+                            <span t-esc="bank_name"> </span>. This transfer represents <span t-esc="company['name']"> </span> salary branch <span style="border-bottom:1px solid black;" t-esc="company_branch"> </span> for the month of <span t-esc="month"/>
                         </div>
 
                     </div>
