@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_ride_driver,access_ride_driver,model_ride_driver,base.group_user,1,1,1,1
 access_ride_trip,access_ride_trip,model_ride_trip,base.group_user,1,1,1,1

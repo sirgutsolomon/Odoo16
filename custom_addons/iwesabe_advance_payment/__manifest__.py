@@ -28,10 +28,12 @@
     'category': 'Accounting',
     'website': 'https://www.iwesabe.com/',
     'license': 'AGPL-3',
-    'depends': ['account'],
+    'depends': ['base' ,'account'],
     'data': [
         'views/payment_view.xml',
-	],
+        'views/account_payment_view.xml',
+
+    ],
     'qweb': [],
     'images': ['static/description/banner.png'],
     'installable': True,

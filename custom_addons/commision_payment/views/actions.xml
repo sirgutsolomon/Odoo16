@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <!-- Action for Driver Form and List View -->
-    <record id="action_driver_form" model="ir.actions.act_window">
-        <field name="name">Drivers</field>
-        <field name="res_model">ride.driver</field>
-        <field name="view_mode">list,form</field> <!-- Changed tree to list -->
-        <field name="view_id" ref="view_driver_list"/> <!-- Referencing the updated list view -->
-    </record>
+
 
     <!-- Action for Trip Form and List View -->
     <record id="action_trip_form" model="ir.actions.act_window">
