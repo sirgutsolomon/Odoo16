@@ -47,5 +47,5 @@ class EmployeeBankLetterReport(models.AbstractModel):
             'company_bank_account':data.get('company_bank_account') ,
             'company_bank_account_branch':data.get('company_bank_account_branch'),
             'company_branch':data.get('company_branch'),
-            'month':data.get('company_branch')
+            'month':datetime.strptime(data.get('month'), "%m").strftime("%B")
         }
