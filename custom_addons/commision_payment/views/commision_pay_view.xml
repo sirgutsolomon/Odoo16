@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <!-- Trip Form View -->
     <record id="view_trip_form" model="ir.ui.view">
         <field name="name">ride.trip.form</field>
         <field name="model">ride.trip</field>
@@ -12,8 +11,11 @@
                         <field name="customer_id"/>
                         <field name="trip_amount"/>
                         <field name="commission_rate"/>
+                        <field name="state" widget="statusbar" readonly="1"/>
 <!--                        <field name="commission_amount" readonly="1"/>-->
-                        <field name="state" readonly="1"/>
+
+                        <!-- Add the state field with the statusbar widget -->
+
                         <button string="Deduct Commission" type="object" name="action_deduct_commission" class="oe_highlight" />
                     </group>
 <!--                    <footer>-->

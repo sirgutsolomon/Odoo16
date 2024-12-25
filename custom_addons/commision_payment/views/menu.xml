@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <!-- Root Menu -->
     <menuitem id="menu_commission_root" name="Commission Payment" sequence="10"/>
 
-    <!-- Menu for Drivers -->
-<!--    <menuitem id="menu_driver" name="Drivers" parent="menu_commission_root" action="action_driver_form" sequence="20"/>-->
-
-    <!-- Menu for Trips -->
     <menuitem id="menu_trip" name="Trips" parent="menu_commission_root" action="action_trip_form" sequence="30"/>
+    <menuitem id="menu_excel" name="Vendor Bill Excel Report" action="action_account_bill_export" parent="accounting_pdf_reports.menu_finance_audit_reports"  sequence="40" />
 </odoo>
