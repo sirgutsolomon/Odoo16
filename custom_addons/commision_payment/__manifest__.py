@@ -4,7 +4,9 @@
     'summary': 'Manage driver payments and commission deductions',
     'category': 'Accounting',
     'author': 'fire fliar',
-    'depends': ['base', 'account','hr_contract',
+    'depends': [
+        'account',
+        'hr_contract',
         'hr_holidays',
         'base',
         'hr',

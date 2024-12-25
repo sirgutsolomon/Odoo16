@@ -23,9 +23,13 @@
         'om_recurring_payments',
         'om_account_daily_reports',
         'om_account_followup',
+        'account',
+        'web'
     ],
     'data': [
         'security/group.xml',
+        'views/bill_receipt_view.xml',
+        'views/bill_export_action.xml',
         'views/menu.xml',
         'views/settings.xml',
         'views/account_group.xml',
