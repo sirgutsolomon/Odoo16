@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+    <!-- Report Action -->
+    <record id="action_employee_tax_income_excel_report" model="ir.actions.report">
+        <field name="name">Employee Tax Income</field>
+        <field name="model">hr.employee</field>
+        <field name="report_name">om_hr_payroll.employee_tax_income_report</field>
+        <field name="report_type">qweb-html</field>
+    </record>
+</odoo>

@@ -49,7 +49,9 @@ class PayslipExportController(http.Controller):
         for payslip in payslips:
             employee_info = payslip.employee_id
             employee_contract = employee_info.contract_id
-            sheet.write(row, 0, employee_info.tin_number)
+            sheet.write(row, 0, '')
+            if employee_info.tin_number:
+                sheet.write(row, 0, employee_info.tin_number)
             sheet.write(row, 1, employee_info.name)
             sheet.write(row, 2, employee_contract.date_start.strftime('%d-%m-%Y'))
             # No thrid column

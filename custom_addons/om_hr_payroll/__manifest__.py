@@ -25,6 +25,7 @@
         'data/hr_payroll_data.xml',
         'wizard/hr_payroll_payslips_by_employees_views.xml',
         'views/hr_contract_type_views.xml',
+        'views/employee_tax_income_excel_report_view.xml',
         'views/hr_contract_views.xml',
         'views/hr_salary_rule_views.xml',
         'views/hr_payslip_views.xml',
@@ -43,6 +44,7 @@
         "report/employee_bank_statement_action.xml",
         "report/employee_bank_letter_action.xml",
         "report/employee_tax_income_excel_export_action.xml",
+        "report/employee_tax_income_excel_report_action.xml",
 
         "views/employee_payroll_summary_report.xml",
         "views/employee_payroll_summary_wizard.xml",

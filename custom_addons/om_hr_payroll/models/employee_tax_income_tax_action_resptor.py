@@ -1,17 +1,6 @@
 from odoo import models
 from odoo.http import request
 
-# class HrPayslip(models.Model):
-#     _inherit = 'hr.payslip'
-#
-#     def action_export_excel(self):
-#         # Redirect to the controller
-#         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
-#         return {
-#             'type': 'ir.actions.act_url',
-#             'url': f'{base_url}/web/export/payslip_excel',
-#             'target': 'new',
-#         }
 from odoo import models, fields
 
 class PayslipExportWizard(models.TransientModel):
@@ -47,13 +36,23 @@ class PayslipExportWizard(models.TransientModel):
         required=False
     )
 
+    # def action_export_excel(self):
+    #     """Redirect to the export URL with filters."""
+    #     url = f'/web/export/payslip_excel?month={self.month}&year={self.year}'
+    #     if self.employee_branch:
+    #         url += f'&branch_id={self.employee_branch.id}'
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': url,
+    #         'target': 'new',
+    #     }
     def action_export_excel(self):
-        """Redirect to the export URL with filters."""
-        url = f'/web/export/payslip_excel?month={self.month}&year={self.year}'
-        if self.employee_branch:
-            url += f'&branch_id={self.employee_branch.id}'
-        return {
-            'type': 'ir.actions.act_url',
-            'url': url,
-            'target': 'new',
+        # Data to be passed to the report
+        data = {
+            'month': self.month,
+            'year': self.year,
+            'branch_id': self.employee_branch.id,
+
         }
+        # Call the report action for the HTML preview
+        return self.env.ref('om_hr_payroll.action_employee_tax_income_excel_report').report_action(self, data=data)
