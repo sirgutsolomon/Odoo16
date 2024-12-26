@@ -113,16 +113,19 @@ class Trip(models.Model):
 
         customer_balance = self._get_customer_advance_balance(advance_account)
         print(f'this is the customer balance {customer_balance}')
+        deducted_price = customer_balance - self.commission_rate
 
-        if customer_balance + self.commission_rate < self.commission_rate:
+        if deducted_price < -10:
             raise UserError("Insufficient advance balance for this trip.")
+        unit_price = 0
+        if deducted_price < 0:
+            unit_price = -deducted_price
 
         # Find the income account (commission income)
         income_account = self.env['account.account'].search([('account_type', '=', 'income')], limit=1)
         if not income_account:
             raise UserError("No income account configured.")
         # Step 1: Create the Invoice ask here
-        unit_price = 0
 
         invoice_vals = {
             'move_type': 'out_invoice',
@@ -134,7 +137,7 @@ class Trip(models.Model):
                 (0, 0, {
                     'name': f'Trip Charge for {self.customer_id.name}',
                     'quantity': 1,
-                    'price_unit': 0,
+                    'price_unit': unit_price,
                     'account_id': self.env['account.account'].search([('account_type', '=', 'income')], limit=1).id,
                 }),
             ],
