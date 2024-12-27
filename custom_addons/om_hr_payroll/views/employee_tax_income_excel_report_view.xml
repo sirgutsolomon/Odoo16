@@ -3,8 +3,15 @@
 
 
     <data>
-        <template id="report_employee_payroll_summary">
+        <template id="employee_tax_income_report">
             <t t-call="web.external_layout">
+                 <div>
+                    <button type="button" style="background-color: #007bff;  padding: 10px 20px; border: none; border-radius: 4px; display: inline-block; font-size: 14px; cursor: pointer; margin-bottom: 15px;" class="btn btn-primary" >
+                        <a t-att-href="url" style="text-decoration: none; color:white"  target="blank">
+                            Export to Excel
+                        </a>
+                    </button>
+                </div>
 
                 <div class="page">
                                         <style>
@@ -64,61 +71,53 @@
                             </div>
                         </div>
                         <div style="width:50%; border-left:1px solid black; text-align:center; display:flex; justify-content:center; align-items:center; flex-direction:column;">
-                            <div>Salary Payment Sheet </div>
-                            <div>Payroll Period <span t-esc="payslip_period"/></div>
-                            <div style="font-size:10px; align-self:end; font-weight:normal; width:100%; text-align:right;"><span t-esc="current_date"/></div>
+                            <div>Salary tax Income Sheet </div>
+                            <div style="font-size:10px; align-self:end; font-weight:normal; width:100%; text-align:right;"><span t-esc="month"/></div>
                         </div>
                         </div>
 
-                        <div style="display:flex; width:30%; justify-content:space-between;font-size:10px;">
-                            <div>Final</div>
-                            <div>Employment Type:-</div>
-                        </div>
-                        <div style="font-weight:bold;margin-top:5px;"> Branch : <span t-esc="headoffice"/></div>
+                        <div style="font-weight:bold;margin:35px 0px;"> </div>
 
 <!--                         <span t-esc="period"/>-->
                         <table style="width: 95%; border: 1px solid black; border-left:0;">
                         <tr style="border-left:1px solid black;background-color: #D3D3D3;">
-                            <th style="width:4%">ID NO.</th>
+                            <th>Employee's Tin</th>
                             <th>Employee's Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Basic Salary</th>
+                            <th>Transport Allowance</th>
+                            <th>Taxable Transport Allowance</th>
                             <th>Over Time</th>
-                            <th>Other Addition</th>
-                            <th>Allowance</th>
-                            <th>Gross Salary</th>
-                            <th>Income Tax</th>
-                            <th>Other Deduction</th>
-                            <th>Pension</th>
-                            <th>Total Deduction</th>
-                            <th>Net Pay</th>
+                            <th>Other Taxable Benefit</th>
+                            <th>Total Taxable Income</th>
+                            <th>Tax Withheld</th>
+                            <th>Cost Sharing</th>
+
 
                         </tr>
                         <t t-foreach="line" t-as="employee">
                             <tr style="border-left:1px solid black;">
-                                <td><t t-esc="employee['id_no']"/></td>
-                                <td><t t-esc="employee['name']"/></td>
-                                <td><t t-esc="employee['basic_salary']"/></td>
-                                <td><t t-esc="employee['over_time']"/></td>
-                                <td><t t-esc="employee['other_addition']"/></td>
-                                <td><t t-esc="employee['total_allowance']"/></td>
-                                <td><t t-esc="employee['gross_salary']"/></td>
-                                <td><t t-esc="employee['income_tax']"/></td>
-                                <td><t t-esc="employee['other_deduction']"/></td>
-                                <td><t t-esc="employee['employee_pension']"/></td>
-                                <td><t t-esc="employee['total_deduction']"/></td>
-                                <td><t t-esc="employee['net']"/></td>
+                              <td><t t-esc="employee['employee_tin']"/></td>
+                    <td><t t-esc="employee['employee_name']"/></td>
+                    <td><t t-esc="employee['contract_start_date']"/></td>
+                    <td> </td>
+
+                    <td><t t-esc="employee['basic_salary']"/></td>
+                    <td><t t-esc="employee['transport_allowance']"/></td>
+                    <td><t t-esc="employee['taxable_transport_allowance']"/></td>
+                    <td> </td>
+                    <td><t t-esc="employee['other_taxable_benefit']"/></td>
+                    <td><t t-esc="employee['total_taxable_income']"/></td>
+                    <td><t t-esc="employee['tax_withheld']"/></td>
+                    <td> </td>
+
+
                             </tr>
                         </t>
                     </table>
                     </main>
                     <div class="" style=" text-align: center; margin-top: auto; padding: 10px 20px;">
-                        <div style="display:flex; justify-content:space-between; margin-top:40px; font-size:12px; font-weight:bold;">
-                            <div style="display:flex"><div>Prepared By:-</div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
-                            <div style="display:flex"><div>Checked By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
-                            <div style="display:flex"><div> Approved By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
-                            <div style="display:flex"><div> Authorized By:- </div>  <div style="border-bottom:1px dashed black; width:130px;"> </div></div>
-
-                        </div>
                         <div style="display:flex; justify-content: end; margin-top:1px; font-size:12px;">
                             <div style="font-weight:400;">Page <span t-esc="line_index + 1"/> of <span t-esc="len(employees)"/></div>
                         </div>
