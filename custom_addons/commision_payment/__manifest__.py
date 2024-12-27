@@ -13,8 +13,8 @@
         'web'],
     'data': [
         'security/ir.model.access.csv',
-        'views/bill_export_action.xml',
-        'views/bill_receipt_view.xml',
+        # 'views/bill_export_action.xml',
+        # 'views/bill_receipt_view.xml',
         'views/commision_pay_view.xml',
         'views/actions.xml',
         'views/menu.xml',

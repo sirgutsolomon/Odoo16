@@ -14,11 +14,9 @@ class AccountBillExportExcel(http.Controller):
         bills = request.env['account.move'].sudo().search([
             ('move_type', '=', 'in_invoice'),
             ('state', '=', 'posted'),
+            ('payment_state', '=', 'paid')
         ])
 
-
-        if not bills:
-            raise UserError("No valid vendor bills selected.")
 
         # Prepare data for export
         data = []
@@ -30,7 +28,7 @@ class AccountBillExportExcel(http.Controller):
                 'Withholdee TIN': partner.vat or '',
                 'Withholdee Full Name': partner.name or '',
                 'Receipt No': bill.receipt_no,
-                'Withhold Date': bill.invoice_date,
+                'Withhold Date': bill.invoice_date.strftime('%d/%m/%y'),
                 'Total Taxable Amount': taxable_amount,
                 'Tax Withheld': withholding_tax,
             })
