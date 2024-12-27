@@ -104,7 +104,6 @@
                     <td> </td>
 
                     <td><t t-esc="employee['basic_salary']"/></td>
-                    <td> </td>
                     <td><t t-esc="employee['transport_allowance']"/></td>
                     <td><t t-esc="employee['taxable_transport_allowance']"/></td>
                     <td> </td>
