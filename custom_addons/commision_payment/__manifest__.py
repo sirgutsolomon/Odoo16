@@ -1,0 +1,26 @@
+{
+    'name': 'Commission Management',
+    'version': '1.0',
+    'summary': 'Manage driver payments and commission deductions',
+    'category': 'Accounting',
+    'author': 'fire fliar',
+    'depends': [
+        'account',
+        'hr_contract',
+        'hr_holidays',
+        'base',
+        'hr',
+        'web'],
+    'data': [
+        'security/ir.model.access.csv',
+        # 'views/bill_export_action.xml',
+        # 'views/bill_receipt_view.xml',
+        'views/commision_pay_view.xml',
+        'views/actions.xml',
+        'views/menu.xml',
+        'views/payment_view.xml',
+        'views/account_payment_view.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

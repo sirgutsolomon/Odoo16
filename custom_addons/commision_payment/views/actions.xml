@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+    <!-- Action for Trip Form and List View -->
+    <record id="action_trip_form" model="ir.actions.act_window">
+        <field name="name">Trips</field>
+        <field name="res_model">ride.trip</field>
+        <field name="view_mode">list,form</field> <!-- Changed tree to list -->
+        <field name="view_id" ref="view_trip_list"/> <!-- Referencing the updated list view -->
+    </record>
+</odoo>
