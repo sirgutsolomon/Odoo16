@@ -153,15 +153,10 @@ class Trip(models.Model):
             ('balance', '>', 0),
         ])
 
-        # Check if there are sufficient funds
-        total_available = sum(receivable_lines.mapped('balance'))
-        print(self.customer_id.property_account_receivable_id.id)
 
-        if total_available <= 0:
-            raise UserError("No available balance in the receivable account to deduct from.")
 
         # Step 3: Deduct the Advance Payment
-        deduction_amount = min(self.commission_rate, total_available)
+        deduction_amount = self.commission_rate
 
         # Create a journal entry to deduct the advance payment
         deduction_move = self.env['account.move'].create({
