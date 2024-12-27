@@ -37,7 +37,7 @@
                   groups="account.group_account_readonly" sequence="4"/>
 
     </menuitem>
-    <menuitem id="menu_excel" name="Vendor Bill Excel Report" action="action_account_bill_export" parent="accounting_pdf_reports.menu_finance_audit_reports"  sequence="40" />
+    <menuitem id="menu_excel" name="Vendor Bill Excel Report" action="action_account_bill_export" groups="account.group_account_readonly" parent="accounting_pdf_reports.menu_finance_audit_reports"  sequence="40" />
 
 
 </odoo>
