@@ -304,9 +304,19 @@ class SaleOrderLine(models.Model):
         related='company_id.tax_calculation_rounding_method',
         string='Tax calculation rounding method', readonly=True)
     company_price_include = fields.Selection(related="company_id.account_price_include")
+    paid_price = fields.Float(string="Paid Price",readonly=False)
+    remaining_amount = fields.Float(string="Remaining Amount", compute="_compute_remaining_amount", store=True)
 
     #=== COMPUTE METHODS ===#
-
+    @api.onchange('paid_price')
+    def _onchange_paid_price(self):
+        """Ensure changes to paid_price dynamically update related fields."""
+        for line in self:
+            line.paid_price = line.paid_price   # Prevent negative values
+    @api.depends('price_total', 'paid_price')
+    def _compute_remaining_amount(self):
+        for line in self:
+            line.remaining_amount = line.price_total - line.paid_price
     @api.depends('order_partner_id', 'order_id', 'product_id')
     def _compute_display_name(self):
         name_per_id = self._additional_name_per_id()
@@ -763,7 +773,10 @@ class SaleOrderLine(models.Model):
             self.env['account.tax']._add_tax_details_in_base_line(base_line, line.company_id)
             line.price_subtotal = base_line['tax_details']['total_excluded_currency']
             line.price_total = base_line['tax_details']['total_included_currency']
+            print(line.price_total)
+            print(line.price_subtotal)
             line.price_tax = line.price_total - line.price_subtotal
+            print(line.price_tax)
 
     @api.depends('price_subtotal', 'product_uom_qty')
     def _compute_price_reduce_taxexcl(self):

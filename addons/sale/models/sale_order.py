@@ -317,11 +317,23 @@ class SaleOrder(models.Model):
         compute='_compute_has_active_pricelist')
     show_update_pricelist = fields.Boolean(
         string="Has Pricelist Changed", store=False)  # True if the pricelist was changed
+    total_paid_price = fields.Float(string="Total Paid Price", compute="_compute_total_paid_price", store=True)
+    balance = fields.Float(string="Remaining Balance", compute="_compute_balance", store=True)
 
     def init(self):
         create_index(self._cr, 'sale_order_date_order_id_idx', 'sale_order', ["date_order desc", "id desc"])
 
     #=== COMPUTE METHODS ===#
+    @api.depends('order_line.paid_price')
+    def _compute_total_paid_price(self):
+        for order in self:
+            order.total_paid_price = sum(order.order_line.mapped('paid_price'))
+            print(sum(order.order_line.mapped('paid_price')))
+
+    @api.depends('total_paid_price','amount_total')
+    def _compute_balance(self):
+        for order in self:
+            order.balance = order.amount_total - order.total_paid_price
 
     @api.depends('partner_id')
     @api.depends_context('sale_show_partner_name')

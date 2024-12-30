@@ -127,12 +127,12 @@
                 <field name="currency_id" column_invisible="True"/>
 
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
-                <field name="date_order" optional="show" readonly="state in ['cancel', 'sale']"/>
+                <field name="date_order" optional="hide" readonly="state in ['cancel', 'sale']"/>
                 <field name="commitment_date" optional="hide"/>
                 <field name="expected_date" optional="hide"/>
                 <field name="partner_id" readonly="1"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
-                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="activity_ids" widget="list_activity" optional="hide"/>
                 <field name="team_id" optional="hide"/>
                 <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
                 <field name="company_id"
@@ -153,6 +153,18 @@
                        decoration-bf="1"
                        decoration-info="invoice_status == 'to invoice'"
                        optional="show"/>
+                <field name="total_paid_price"
+                       sum="Total Tax Included"
+                       widget="monetary"
+                       decoration-bf="1"
+                       decoration-info="invoice_status == 'to invoice'"
+                       optional="show"/>
+                <field name="balance"
+                       sum="Total Tax Included"
+                       widget="monetary"
+                       decoration-bf="1"
+                       decoration-info="invoice_status == 'to invoice'"
+                       optional="show"/>
                 <field name="tag_ids"
                       widget="many2many_tags"
                       options="{'color_field': 'color'}"
@@ -168,7 +180,7 @@
                     decoration-info="invoice_status == 'to invoice'"
                     decoration-warning="invoice_status == 'upselling'"
                     widget="badge"
-                    optional="show"/>
+                    optional="hide"/>
                 <field name="client_order_ref" optional="hide"/>
                 <field name="validity_date" optional="hide"/>
             </list>
@@ -253,41 +265,42 @@
         <field name="model">sale.order</field>
         <field name="arch" type="xml">
             <form string="Sales Order" class="o_sale_order">
+
             <header>
                 <field name="locked" invisible="1"/>
                 <field name="authorized_transaction_ids" invisible="1"/>
                 <button name="payment_action_capture" type="object" data-hotkey="shift+g"
                         string="Capture Transaction" class="oe_highlight"
-                        invisible="not authorized_transaction_ids"/>
+                        invisible="1"/>
                 <button name="payment_action_void" type="object"
                         string="Void Transaction" data-hotkey="shift+v"
                         confirm="Are you sure you want to void the authorized transaction? This action can't be undone."
-                        invisible="not authorized_transaction_ids"/>
+                        invisible="1"/>
                 <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                     type="action" class="btn-primary" data-hotkey="q"
-                    invisible="invoice_status != 'to invoice'"/>
+                    invisible="1"/>
                 <button id="create_invoice_percentage" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                     type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
-                    invisible="invoice_status != 'no' or state != 'sale'"/>
+                    invisible="1"/>
                 <button name="action_quotation_send" id="send_by_email_primary" string="Send by Email" type="object" data-hotkey="g"
-                    invisible="state != 'draft'" class="btn-primary"
+                    invisible="1" active="False" class="btn-primary"
                     context="{'validate_analytic': True, 'check_document_layout': True}"/>
                 <button name="action_quotation_send" id="send_proforma_primary" type="object" string="Send PRO-FORMA Invoice" class="btn-primary"
                     groups="sale.group_proforma_sales"
-                    invisible="state != 'draft' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
+                    invisible="1" context="{'proforma': True, 'validate_analytic': True}"/>
                 <button name="action_confirm" id="action_confirm" data-hotkey="q"
                     string="Confirm" class="btn-primary" type="object" context="{'validate_analytic': True}"
                     invisible="state != 'sent'"/>
                 <button name="action_confirm" data-hotkey="q"
                     string="Confirm" type="object" context="{'validate_analytic': True}"
                     invisible="state != 'draft'"/>
-                <button name="action_quotation_send" id="send_proforma" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" invisible="state == 'draft' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
-                <button name="action_quotation_send" id="send_by_email" string="Send by Email" type="object" invisible="state not in ('sent', 'sale')" data-hotkey="g" context="{'validate_analytic': True, 'check_document_layout': True}"/>
+                <button name="action_quotation_send" id="send_proforma" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" invisible="1" context="{'proforma': True, 'validate_analytic': True}"/>
+                <button name="action_quotation_send" id="send_by_email" string="Send by Email" type="object" invisible="1" data-hotkey="g" context="{'validate_analytic': True, 'check_document_layout': True}"/>
 
                 <!-- allow to unlock locked orders even if setting is not enabled (e.g. orders synchronized from connectors) -->
                 <button name="action_unlock" type="object" string="Unlock"
-                        invisible="not locked" groups="sales_team.group_sale_manager"/>
-                <button name="action_preview_sale_order" string="Preview" type="object" class="btn-secondary"/>
+                        invisible="1" groups="sales_team.group_sale_manager"/>
+                <button name="action_preview_sale_order" string="Preview" invisible="1" type="object" class="btn-secondary"/>
                 <button name="action_cancel" type="object" string="Cancel" invisible="state not in ['draft', 'sent', 'sale'] or not id or locked" data-hotkey="x"/>
                 <button name="action_draft" invisible="state != 'cancel'" type="object" string="Set to Quotation" data-hotkey="w"/>
                 <t groups="sale.group_auto_done_setting">
@@ -296,7 +309,7 @@
                         invisible="locked or state != 'sale'"
                         groups="sales_team.group_sale_manager"/>
                 </t>
-                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
+<!--                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>-->
             </header>
             <div
                  class="alert alert-warning" role="alert"
@@ -503,14 +516,11 @@
                             <list
                                 string="Sales Order Lines"
                                 editable="bottom"
-                                limit="200"
+
                                 decoration-warning="state in ['draft', 'sent'] and is_product_archived"
                             >
                                 <control>
-                                    <create name="add_product_control" string="Add a product"/>
-                                    <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
-                                    <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
-                                    <button name="action_add_from_catalog" string="Catalog" type="object" class="px-4 btn-link" context="{'order_id': parent.id}"/>
+                                    <create name="add_product_control" string="Add a Product or Payment"/>
                                 </control>
 
                                 <field name="sequence" widget="handle" />
@@ -655,6 +665,8 @@
                                        column_invisible="parent.company_price_include == 'tax_excluded'"
                                        invisible="is_downpayment"
                                        string="Amount"/>
+                                <field name="paid_price"
+                                       string="Paid amount"/>
                                 <!-- Others fields -->
                                 <field name="tax_calculation_rounding_method" column_invisible="True"/>
                                 <field name="state" column_invisible="True"/>
@@ -723,20 +735,34 @@
                                 </templates>
                             </kanban>
                         </field>
-                        <div class="float-end d-flex gap-1 mb-2"
+                        <div invisible="1" class="float-end d-flex gap-1 mb-2"
                              name="so_button_below_order_lines">
                             <button string="Discount"
                                     name="action_open_discount_wizard"
                                     type="object"
+                                    invisible="1"
                                     class="btn btn-secondary"
                                     groups="sale.group_discount_per_so_line"/>
                         </div>
                         <group name="note_group" col="6" class="mt-2 mt-md-0">
-                            <group colspan="4" class="order-1 order-lg-0">
-                                <field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>
-                            </group>
+<!--                            <group colspan="4" class="order-1 order-lg-0">-->
+<!--                                <field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+<!--                            </group>-->
                             <group class="oe_subtotal_footer d-flex order-0 order-lg-1 flex-column gap-0 gap-sm-3" colspan="2" name="sale_total">
-                                <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" readonly="1"/>
+                                <div class="d-flex justify-content-between">
+                                    <div>Total:</div>
+                                    <div style="font-weight: 700;"><field name="amount_total" readonly="1"/></div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div>Total Paid Price:</div>
+                                    <div style="font-weight: 700;"><field name="total_paid_price" readonly="1"/></div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div>Remaining Balance:</div>
+                                    <div style="font-weight: 700;"><field name="balance" readonly="1"/></div>
+                                </div>
+<!--                                <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" readonly="1"/>-->
+
                             </group>
                         </group>
                     </page>
@@ -796,13 +822,13 @@
                             </group>
                         </group>
                     </page>
-                    <page groups="base.group_no_one" string="Customer Signature" name="customer_signature" invisible="not require_signature and not signed_by and not signature and not signed_on">
-                        <group>
-                            <field name="signed_by" readonly="signature"/>
-                            <field name="signed_on" readonly="signature"/>
-                            <field name="signature" widget="image"/>
-                        </group>
-                    </page>
+<!--                    <page groups="base.group_no_one" string="Customer Signature" name="customer_signature" invisible="not require_signature and not signed_by and not signature and not signed_on">-->
+<!--                        <group>-->
+<!--                            <field name="signed_by" readonly="signature"/>-->
+<!--                            <field name="signed_on" readonly="signature"/>-->
+<!--                            <field name="signature" widget="image"/>-->
+<!--                        </group>-->
+<!--                    </page>-->
                 </notebook>
             </sheet>
             <chatter/>
