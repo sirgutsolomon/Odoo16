@@ -16,6 +16,7 @@
     'license': 'LGPL-3',
     'support': 'odoomates@gmail.com',
     'depends': [
+        'base',
         'accounting_pdf_reports',
         'om_account_asset',
         'om_account_budget',
@@ -28,6 +29,7 @@
     ],
     'data': [
         'security/group.xml',
+        'security/ir.model.access.csv',
         'views/bill_receipt_view.xml',
         'views/bill_export_action.xml',
         'views/menu.xml',

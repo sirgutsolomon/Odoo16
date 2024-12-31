@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_action_account_bill_export,access_action_account_bill_export,model_action_account_bill_export,,1,0,0,0
+access_account_bill_report,access_account_bill_report,model_account_bill_report_excel,,1,0,0,0
