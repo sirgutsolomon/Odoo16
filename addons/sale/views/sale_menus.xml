@@ -97,6 +97,7 @@
 
         <menuitem id="menu_sale_config"
             name="Configuration"
+            active="False"
             groups="sales_team.group_sale_manager"
             sequence="50">
 
