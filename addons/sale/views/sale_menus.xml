@@ -95,25 +95,26 @@
 
         </menuitem>
 
-<!--        <menuitem id="menu_sale_config"-->
-<!--            name="Configuration"-->
-<!--            groups="sales_team.group_sale_manager"-->
-<!--            sequence="50">-->
+        <menuitem id="menu_sale_config"
+            name="Configuration"
+            groups="sales_team.group_sale_manager"
+            sequence="50">
 
-<!--            <menuitem id="menu_sale_general_settings"-->
-<!--                name="Settings"-->
-<!--                sequence="10"-->
-<!--                action="action_sale_config_settings"-->
-<!--                groups="base.group_system"/>-->
+            <menuitem id="menu_sale_general_settings"
+                name="Settings"
+                sequence="10"
+                action="action_sale_config_settings"
+                groups="base.group_system"/>
 
-<!--            <menuitem id="sales_team_config"-->
-<!--                name="Sales Teams"-->
-<!--                action="sales_team.crm_team_action_config"-->
-<!--                sequence="20"/>-->
+            <menuitem id="sales_team_config"
+                name="Sales Teams"
+                action="sales_team.crm_team_action_config"
+                sequence="20"/>
 
             <menuitem id="menu_sales_config" groups="base.group_no_one"
                 sequence="30"
-                name="Sales Orders" active="False">
+                name="Sales Orders"
+                >
 
                 <menuitem id="menu_tag_config"
                     name="Tags"
@@ -122,94 +123,94 @@
 
             </menuitem>
 
-<!--            <menuitem id="prod_config_main"-->
-<!--                name="Products"-->
-<!--                sequence="40">-->
+            <menuitem id="prod_config_main"
+                name="Products"
+                sequence="40">
 
-<!--                <menuitem id="menu_product_attribute_action"-->
-<!--                    action="product.attribute_action"-->
-<!--                    groups="product.group_product_variant"-->
-<!--                    sequence="10"/>-->
+                <menuitem id="menu_product_attribute_action"
+                    action="product.attribute_action"
+                    groups="product.group_product_variant"
+                    sequence="10"/>
 
-<!--                <menuitem-->
-<!--                    id="menu_product_combos"-->
-<!--                    name="Combo Choices"-->
-<!--                    action="product.product_combo_action"-->
-<!--                    sequence="15"-->
-<!--                />-->
+                <menuitem
+                    id="menu_product_combos"
+                    name="Combo Choices"
+                    action="product.product_combo_action"
+                    sequence="15"
+                />
 
-<!--                <menuitem id="menu_product_categories"-->
-<!--                    action="product.product_category_action_form"-->
-<!--                    sequence="20"/>-->
+                <menuitem id="menu_product_categories"
+                    action="product.product_category_action_form"
+                    sequence="20"/>
 
-<!--                <menuitem id="menu_product_tags"-->
-<!--                    action="product.product_tag_action"-->
-<!--                    sequence="30"/>-->
+                <menuitem id="menu_product_tags"
+                    action="product.product_tag_action"
+                    sequence="30"/>
 
-<!--            </menuitem>-->
+            </menuitem>
 
-<!--            <menuitem id="payment_menu"-->
-<!--                      name="Online Payments"-->
-<!--                      groups="base.group_system"-->
-<!--                      sequence="45"-->
-<!--            >-->
-<!--                <menuitem id="payment_provider_menu"-->
-<!--                          action="payment.action_payment_provider"-->
-<!--                          sequence="10"-->
-<!--                />-->
-<!--                <menuitem id="payment_method_menu"-->
-<!--                          action="payment.action_payment_method"-->
-<!--                          sequence="20"-->
-<!--                />-->
-<!--                <menuitem id="payment_token_menu"-->
-<!--                          action="payment.action_payment_token"-->
-<!--                          groups="base.group_no_one"-->
-<!--                          sequence="30"-->
-<!--                />-->
-<!--                <menuitem id="payment_transaction_menu"-->
-<!--                          action="payment.action_payment_transaction"-->
-<!--                          groups="base.group_no_one"-->
-<!--                          sequence="40"-->
-<!--                />-->
-<!--            </menuitem>-->
+            <menuitem id="payment_menu"
+                      name="Online Payments"
+                      groups="base.group_system"
+                      sequence="45"
+            >
+                <menuitem id="payment_provider_menu"
+                          action="payment.action_payment_provider"
+                          sequence="10"
+                />
+                <menuitem id="payment_method_menu"
+                          action="payment.action_payment_method"
+                          sequence="20"
+                />
+                <menuitem id="payment_token_menu"
+                          action="payment.action_payment_token"
+                          groups="base.group_no_one"
+                          sequence="30"
+                />
+                <menuitem id="payment_transaction_menu"
+                          action="payment.action_payment_transaction"
+                          groups="base.group_no_one"
+                          sequence="40"
+                />
+            </menuitem>
 
-<!--            <menuitem id="next_id_16"-->
-<!--                name="Units of Measure"-->
-<!--                groups="uom.group_uom"-->
-<!--                sequence="50">-->
+            <menuitem id="next_id_16"
+                name="Units of Measure"
+                groups="uom.group_uom"
+                sequence="50">
 
-<!--                <menuitem id="menu_product_uom_form_action"-->
-<!--                    action="uom.product_uom_form_action"-->
-<!--                    groups="base.group_no_one"-->
-<!--                    sequence="10"/>-->
+                <menuitem id="menu_product_uom_form_action"
+                    action="uom.product_uom_form_action"
+                    groups="base.group_no_one"
+                    sequence="10"/>
 
-<!--                <menuitem id="menu_product_uom_categ_form_action"-->
-<!--                    action="uom.product_uom_categ_form_action"-->
-<!--                    sequence="20"/>-->
+                <menuitem id="menu_product_uom_categ_form_action"
+                    action="uom.product_uom_categ_form_action"
+                    sequence="20"/>
 
-<!--            </menuitem>-->
+            </menuitem>
 
-<!--            <menuitem-->
-<!--                id="sale_menu_config_activities"-->
-<!--                name="Activities"-->
-<!--                sequence="55">-->
+            <menuitem
+                id="sale_menu_config_activities"
+                name="Activities"
+                sequence="55">
 
-<!--                <menuitem id="sale_menu_config_activity_type"-->
-<!--                    action="mail_activity_type_action_config_sale"-->
-<!--                    groups="base.group_no_one"-->
-<!--                    sequence="10"-->
-<!--                    />-->
+                <menuitem id="sale_menu_config_activity_type"
+                    action="mail_activity_type_action_config_sale"
+                    groups="base.group_no_one"
+                    sequence="10"
+                    />
 
-<!--                <menuitem id="sale_menu_config_activity_plan"-->
-<!--                    name="Activity Plans"-->
-<!--                    action="mail_activity_plan_action_sale_order"-->
-<!--                    groups="sales_team.group_sale_manager"-->
-<!--                    sequence="20"-->
-<!--                    />-->
+                <menuitem id="sale_menu_config_activity_plan"
+                    name="Activity Plans"
+                    action="mail_activity_plan_action_sale_order"
+                    groups="sales_team.group_sale_manager"
+                    sequence="20"
+                    />
 
-<!--            </menuitem>-->
+            </menuitem>
 
-<!--        </menuitem>-->
+        </menuitem>
     </menuitem>
 
 </odoo>
