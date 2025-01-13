@@ -12,7 +12,7 @@
                     <button string="Print Labels"
                         type="object"
                         name="action_open_label_layout"
-                        invisible="type == 'service'"
+                        invisible="1"
                     />
                 </header>
                 <sheet name="product_form">
@@ -71,11 +71,11 @@
                         </h1>
                     </div>
                     <div name="options">
-                        <span class="d-inline-block">
+                        <span class="d-inline-block" invisible="1">
                             <field name="sale_ok"/>
                             <label for="sale_ok"/>
                         </span>
-                        <span class="d-inline-block" invisible="type == 'combo'">
+                        <span class="d-inline-block" invisible="1">
                             <field name="purchase_ok"/>
                             <label for="purchase_ok"/>
                         </span>
@@ -156,9 +156,9 @@
                                     <field name="product_variant_id" invisible="1"/>
                                 </group>
                             </group>
-                            <group name="internal_notes" string="Internal Notes">
+<!--                            <group name="internal_notes" string="Internal Notes">
                                 <field colspan="2" name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
-                            </group>
+                            </group>-->
                         </page>
                         <page string="Sales" name="sales" invisible="1 or not sale_ok">
                             <group name="sale">

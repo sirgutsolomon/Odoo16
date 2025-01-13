@@ -444,6 +444,6 @@
             </field>
         </record>
 
-    <menuitem action="stock_move_action" id="stock_move_menu" name="Moves Analysis" parent="stock.menu_warehouse_report" sequence="230"/>
+    <menuitem action="stock_move_action" id="stock_move_menu" name="Moves Analysis" parent="stock.menu_warehouse_report" active="False" sequence="230"/>
 
 </odoo>

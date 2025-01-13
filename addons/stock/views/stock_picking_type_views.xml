@@ -35,7 +35,7 @@
     <menuitem
         action="stock_picking_type_action"
         id="stock_picking_type_menu"
-        parent="menu_stock_root" sequence="0"
+        parent="menu_stock_root"  active="False" sequence="0"
         name="Overview"/>
 
     <record id="view_pickingtype_filter" model="ir.ui.view">

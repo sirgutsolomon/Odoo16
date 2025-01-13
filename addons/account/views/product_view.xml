@@ -67,7 +67,7 @@
                                     groups="account.group_account_readonly"/>
                             </group>
                         </group>
-                        <group name="accounting" groups="account.group_account_readonly,account.group_account_invoice"/>
+                        <group name="accounting"  groups="account.group_account_readonly,account.group_account_invoice"/>
                     </page>
                 </page>
                 <div name="list_price_uom" position="after">
@@ -75,6 +75,7 @@
                     <div name="taxes_div" class="o_row" invisible="type == 'combo'">
                         <field
                             name="taxes_id"
+                            invisible="1"
                             widget="many2many_tags"
                             class="oe_inline"
                             context="{
@@ -89,7 +90,7 @@
                 </div>
                 <div name="standard_price_uom" position="after">
                     <field name="supplier_taxes_id"
-                        invisible="not purchase_ok or type == 'combo'"
+                        invisible="1"
                         widget="many2many_tags"
                         context="{
                             'default_type_tax_use':'purchase',
