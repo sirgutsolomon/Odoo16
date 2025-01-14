@@ -469,8 +469,8 @@
                                         <div name="delivered_qty" invisible="parent.state != 'sale'">
                                             <field name="qty_delivered" readonly="qty_delivered_method != 'manual'"/>
                                         </div>
-                                        <label for="qty_invoiced" string="Invoiced" invisible="parent.state != 'sale'"/>
-                                        <div name="invoiced_qty" invisible="parent.state != 'sale'">
+                                        <label for="qty_invoiced" string="Invoiced" invisible="1"/>
+                                        <div name="invoiced_qty" invisible="1">
                                             <field name="qty_invoiced"/>
                                         </div>
                                         <field name="product_packaging_qty" invisible="not product_id or not product_packaging_id" groups="product.group_stock_packaging"/>
@@ -766,7 +766,7 @@
                             </group>
                         </group>
                     </page>
-                    <page string="Other Info" name="other_information">
+                    <page string="Other Info" name="other_information" invisible="1">
                         <group>
                             <group name="sales_person" string="Sales">
                                 <field name="user_id" widget="many2one_avatar_user"/>

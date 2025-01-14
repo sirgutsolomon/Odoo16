@@ -49,8 +49,9 @@
                         <button class="oe_stat_button"
                                 name="action_open_documents"
                                 type="object"
-                                icon="fa-file-text-o">
-                            <field string="Documents" name="product_document_count" widget="statinfo"/>
+                                icon="fa-file-text-o"
+                                 invisible="1">
+                            <field string="Documents" name="product_document_count" widget="statinfo" invisible="1"/>
                         </button>
                     </div>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
@@ -100,7 +101,7 @@
                                     <field name="product_tooltip"
                                         class="fst-italic text-muted"
                                         string=""
-                                        invisible="not product_tooltip"
+                                        invisible="1"
                                     />
                                 </group>
                                 <group name="group_standard_price">
@@ -160,15 +161,15 @@
                                 <field colspan="2" name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
                             </group>-->
                         </page>
-                        <page string="Sales" name="sales" invisible="1 or not sale_ok">
-                            <group name="sale">
+                        <page string="Sales" invisible="1" name="sales" >
+                            <group name="sale" invisible="1">
                                 <group string="Upsell &amp; Cross-Sell" name="upsell" invisible="1"/>
-                                <group name="extra_info" string="Extra Info">
+                                <group name="extra_info" string="Extra Info" invisible="1">
                                     <field name="product_tag_ids" widget="many2many_tags" context="{'product_template_id': id}"/>
                                 </group>
                             </group>
                             <group>
-                                <group string="Quotation Description" name="description">
+                                <group string="Quotation Description" name="description" invisible="1">
                                     <field colspan="2" name="description_sale" nolabel="1" placeholder="This note is added to sales orders and invoices."/>
                                 </group>
                             </group>
@@ -176,10 +177,10 @@
                         <page
                             string="Purchase"
                             name="purchase"
-                            invisible="1 or not purchase_ok or type == 'combo'"
+                            invisible="1"
                             groups="uom.group_uom"
                         >
-                            <group name="purchase">
+                            <group name="purchase" invisible="1">
                                 <group string="Vendor Bills" name="bill">
                                     <field name="uom_po_id" groups="uom.group_uom" options="{'no_create': True}"/>
                                 </group>
@@ -230,10 +231,10 @@
                 <separator/>
                 <filter string="Services" name="services" domain="[('type','=','service')]"/>
                 <filter string="Goods" name="goods" domain="[('type', '=', 'consu')]"/>
-                <filter string="Combo" name="combo" domain="[('type', '=', 'combo')]"/>
+                <filter string="Combo" name="combo" domain="[('type', '=', 'combo')]" invisible="1"/>
                 <separator/>
                 <filter string="Sales" name="filter_to_sell" domain="[('sale_ok','=',True)]"/>
-                <filter string="Purchase" name="filter_to_purchase" domain="[('purchase_ok', '=', True)]"/>
+                <filter string="Purchase" name="filter_to_purchase" domain="[('purchase_ok', '=', True)]" invisible="1"/>
                 <separator/>
                 <field string="Attributes" name="attribute_line_ids" groups="product.group_product_variant"/>
                 <filter invisible="1" string="Late Activities" name="activities_overdue"
@@ -245,14 +246,14 @@
                     domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))
                     ]"/>
                 <separator/>
-                <filter string="Favorites" name="favorites" domain="[('is_favorite', '=', True)]"/>
+                <filter string="Favorites" name="favorites" domain="[('is_favorite', '=', True)]" invisible="1"/>
                 <separator/>
                 <filter string="Warnings" name="activities_exception"
-                        domain="[('activity_exception_decoration', '!=', False)]"/>
+                        domain="[('activity_exception_decoration', '!=', False)]" invisible="1"/>
                 <separator/>
-                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]" invisible="1"/>
                 <group expand="1" string="Group By">
-                    <filter string="Product Type" name="type" context="{'group_by':'type'}"/>
+                    <filter string="Product Type" name="type" context="{'group_by':'type'}" invisible="1"/>
                     <filter string="Product Category" name="categ_id" context="{'group_by':'categ_id'}"/>
                 </group>
             </search>
@@ -691,7 +692,7 @@ action = {
                        groups="product.group_product_variant"/>
                 <field name="product_tmpl_id" string="Product Template"/>
                 <!-- Filter -->
-                <filter string="Favorites" name="favorites" domain="[('is_favorite', '=', True)]"/>
+                <filter string="Favorites" name="favorites" domain="[('is_favorite', '=', True)]" />
                 <separator/>
                 <filter string="Services" name="services" domain="[('type', '=', 'service')]"/>
                 <filter string="Goods"

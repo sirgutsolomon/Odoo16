@@ -88,7 +88,7 @@ class ProductTemplate(models.Model):
 
     # list_price: catalog price, user defined
     list_price = fields.Float(
-        'Sales Price', default=1.0,
+        'Sales Price', default=0.0,
         digits='Product Price',
         tracking=True,
         help="Price at which the product is sold to customers.",
