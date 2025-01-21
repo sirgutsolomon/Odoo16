@@ -15,6 +15,9 @@ from odoo.tools import float_is_zero, float_round, float_repr, float_compare, fo
 from odoo.exceptions import ValidationError, UserError
 from odoo.osv.expression import AND
 import base64
+import xml.etree.ElementTree as ET
+import os
+from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
@@ -720,6 +723,7 @@ class PosOrder(models.Model):
         return new_move
 
     def action_pos_order_paid(self):
+        print("payment made")
         self.ensure_one()
 
         # TODO: add support for mix of cash and non-cash payments when both cash_rounding and only_round_cash_method are True
@@ -746,8 +750,28 @@ class PosOrder(models.Model):
                 raise UserError(_("Order %s is not fully paid.", self.name))
 
         self.write({'state': 'paid'})
+        self.export_pos_order_xml()
 
         return True
+
+    def export_pos_order_xml(self):
+        """Generate and dump an XML file for POS orders"""
+        root = ET.Element("Orders")
+
+        for order in self:
+            order_elem = ET.SubElement(root, "Order", {'id': str(order.id)})
+            ET.SubElement(order_elem, "Customer").text = order.partner_id.name or "Guest"
+            ET.SubElement(order_elem, "TotalAmount").text = str(order.amount_total)
+
+        # Define file path
+        file_path = "/home/zerabruck/Desktop/odoo/pos_orders.xml"
+
+        # Write XML file
+        tree = ET.ElementTree(root)
+        tree.write(file_path, encoding="utf-8", xml_declaration=True)
+
+        return file_path
+
 
     def _prepare_invoice_vals(self):
         self.ensure_one()
