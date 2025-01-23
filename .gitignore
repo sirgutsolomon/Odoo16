@@ -76,3 +76,4 @@ __pycache__/
 *.db
 *.dump
 .env
+*.zip
