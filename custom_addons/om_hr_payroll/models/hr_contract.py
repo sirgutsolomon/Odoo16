@@ -2,7 +2,13 @@
 
 from odoo import api, fields, models
 
+class HrAllowance(models.Model):
+    _name = "hr.allowance"
+    _description = "Employee Allowances"
 
+    contract_id = fields.Many2one("hr.contract", string="Contract", required=True, ondelete="cascade")
+    name = fields.Char(string="Allowance Type", required=True)
+    amount = fields.Float(string="Amount", required=True)
 class HrContract(models.Model):
     """
     Employee contract based on the visa, work permits
@@ -10,7 +16,7 @@ class HrContract(models.Model):
     """
     _inherit = 'hr.contract'
     _description = 'Employee Contract'
-
+    allowance_ids = fields.One2many("hr.allowance", "contract_id", string="Allowances")
     struct_id = fields.Many2one('hr.payroll.structure', string='Salary Structure')
     schedule_pay = fields.Selection([
         ('monthly', 'Monthly'),

@@ -374,6 +374,7 @@ class HrPayslip(models.Model):
                 localdict['result'] = None
                 localdict['result_qty'] = 1.0
                 localdict['result_rate'] = 100
+                localdict['salary_rules'] = sorted_rules
                 #check if the rule can be applied
                 if rule._satisfy_condition(localdict) and rule.id not in blacklist:
                     #compute the amount of the rule

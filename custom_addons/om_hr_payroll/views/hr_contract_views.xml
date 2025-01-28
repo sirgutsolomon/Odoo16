@@ -77,6 +77,14 @@
                         <span>/ month</span>
                     </div>
                 </group>
+                 <group string="Monthly Allowances">
+                <field name="allowance_ids" nolabel="1">
+                    <list editable="bottom">
+                        <field name="name"/>
+                        <field name="amount"/>
+                    </list>
+                </field>
+            </group>
             </xpath>
         </field>
     </record>
