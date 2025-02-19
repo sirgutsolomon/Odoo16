@@ -16,7 +16,6 @@ class HrContract(models.Model):
     """
     _inherit = 'hr.contract'
     _description = 'Employee Contract'
-    allowance_ids = fields.One2many("hr.allowance", "contract_id", string="Allowances")
     struct_id = fields.Many2one('hr.payroll.structure', string='Salary Structure')
     schedule_pay = fields.Selection([
         ('monthly', 'Monthly'),
@@ -40,7 +39,18 @@ class HrContract(models.Model):
     type_id = fields.Many2one('hr.contract.type', string="Employee Category",
                               required=True, help="Employee category",
                               default=lambda self: self.env['hr.contract.type'].search([], limit=1))
+    allowance_ids = fields.One2many(
+        "hr.allowance", "contract_id", string="Allowances",
+        default=lambda self: self._default_allowances()
+    )
 
+    @api.model
+    def _default_allowances(self):
+        return [
+            (0, 0, {"name": "Medical Allowance", "amount": 500}),
+            (0, 0, {"name": "Meal Allowance", "amount": 300}),
+            (0, 0, {"name": "Travel Allowance", "amount": 200}),
+        ]
     def get_all_structures(self):
         """
         @return: the structures linked to the given contracts, ordered by hierachy (parent=False first,
