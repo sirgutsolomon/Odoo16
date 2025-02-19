@@ -35,48 +35,56 @@
             </xpath>
 
             <xpath expr="//group[@name='salary_info']" position="after">
-                <group string="Monthly Advantages in Cash" name='allowances'>
-                    <label for="hra"/>
-                    <div class="o_row">
-                        <field name="hra" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="da"/>
-                    <div class="o_row">
-                        <field name="da" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="travel_allowance"/>
-                    <div class="o_row">
+<!--                <group string="Monthly Advantages in Cash" name='allowances'>-->
+<!--                    <label for="hra"/>-->
+<!--                    <div class="o_row">-->
+<!--                        <field name="hra" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="da"/>-->
+<!--                    <div class="o_row">-->
+<!--                        <field name="da" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="travel_allowance"/>-->
+<!--                    <div class="o_row">-->
 
-                        <field name="travel_allowance" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="taxable_travel_allowance"/>
-                    <div class="o_row">
+<!--                        <field name="travel_allowance" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="taxable_travel_allowance"/>-->
+<!--                    <div class="o_row">-->
 
-                        <field name="taxable_travel_allowance" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="meal_allowance"/>
-                    <div class="o_row">
+<!--                        <field name="taxable_travel_allowance" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="meal_allowance"/>-->
+<!--                    <div class="o_row">-->
 
-                        <field name="meal_allowance" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="medical_allowance"/>
-                    <div class="o_row">
+<!--                        <field name="meal_allowance" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="medical_allowance"/>-->
+<!--                    <div class="o_row">-->
 
-                        <field name="medical_allowance" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                    <label for="other_allowance"/>
-                    <div class="o_row">
+<!--                        <field name="medical_allowance" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                    <label for="other_allowance"/>-->
+<!--                    <div class="o_row">-->
 
-                        <field name="other_allowance" nolabel="1"/>
-                        <span>/ month</span>
-                    </div>
-                </group>
+<!--                        <field name="other_allowance" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+<!--                </group>-->
+                 <group string="Monthly Allowances">
+                <field name="allowance_ids" nolabel="1">
+                    <list editable="bottom">
+                        <field name="name"/>
+                        <field name="amount"/>
+                    </list>
+                </field>
+            </group>
             </xpath>
         </field>
     </record>

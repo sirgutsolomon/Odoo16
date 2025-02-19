@@ -152,19 +152,18 @@ class HrSalaryRule(models.Model):
         help='For example, enter 50.0 to apply a percentage of 50%')
     amount_python_compute = fields.Text(string='Python Code',
         default='''
-                    # Available variables:
-                    #----------------------
-                    # payslip: object containing the payslips
-                    # employee: hr.employee object
-                    # contract: hr.contract object
-                    # rules: object containing the rules code (previously computed)
-                    # categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category).
-                    # worked_days: object containing the computed worked days.
-                    # inputs: object containing the computed inputs.
+        # Available variables:
+        #----------------------
+        # payslip: object containing the payslips
+        # employee: hr.employee object
+        # contract: hr.contract object
+        # salary_rules: object containing the rules that is computed
+        # absent_days: object containing the computed absent days.
+        # allowances : list of all allowance on the contract
 
-                    # Note: returned value have to be set in the variable 'result'
+        # Note: returned value have to be set in the variable 'result'
 
-                    result = contract.wage * 0.10''')
+        result = contract.wage * 0.10''')
     amount_percentage_base = fields.Char(string='Percentage based on', help='result will be affected to a variable')
     child_ids = fields.One2many('hr.salary.rule', 'parent_rule_id', string='Child Salary Rule', copy=True)
     register_id = fields.Many2one('hr.contribution.register', string='Contribution Register',
@@ -196,6 +195,7 @@ class HrSalaryRule(models.Model):
 
 
         self.ensure_one()
+
         if self.amount_select == 'fix':
             try:
                 return self.amount_fix, float(safe_eval(self.quantity, localdict)), 100.0
