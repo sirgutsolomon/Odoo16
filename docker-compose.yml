@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo_password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  odoo:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8068:8068"
+    depends_on:
+      - db
+    environment:
+      - HOST=db
+
+volumes:
+  pgdata:
