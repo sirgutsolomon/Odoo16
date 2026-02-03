@@ -13,9 +13,10 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   odoo:
-    build:
-      context: .
-      dockerfile: dockerfile
+    image:  zerabruck/odoo-18:1.0 
+    # build:
+    #   context: .
+    #   dockerfile: dockerfile
     ports:
       - "8068:8068"
     depends_on:
